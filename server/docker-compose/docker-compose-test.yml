@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  mysql-test:
+    image: mysql:8.0.33
+    restart: always
+    container_name: mysql-test
+    environment:
+      MYSQL_DATABASE: test_db
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: pass
+    ports:
+      - "3308:3306"

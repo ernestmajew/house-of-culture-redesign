@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/create_table.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/drop_user_fields.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/contact_info_update.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/update_post_categories.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/password_change.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/db_fix.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/child.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/update_post_description.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/social_media_tokens_init.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/update_event_table.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/keep_admin.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/enrollment_payment_reference.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/event_enum_types.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/add_geolocation_contact_info.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/update_user_nullable_fields.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/payment_update.sql"/>
+    <include relativeToChangelogFile="true" file="../sql-scripts/prod/populate_with_sample_data.sql"/>
+</databaseChangeLog>
