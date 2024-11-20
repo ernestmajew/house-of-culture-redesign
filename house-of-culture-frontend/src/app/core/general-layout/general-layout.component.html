@@ -1,16 +1,25 @@
 <app-toolbar class="toolbar"></app-toolbar>
-<mat-progress-bar class="progress-bar" color="accent" *ngIf="loading()" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar
+  class="progress-bar"
+  color="accent"
+  *ngIf="loading()"
+  mode="indeterminate"
+></mat-progress-bar>
 
 <app-notification-message class="notification"></app-notification-message>
 
 <mat-drawer-container autosize class="container">
-
   <mat-drawer-content class="container__content" id="content">
-      <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
   </mat-drawer-content>
 
-  <mat-drawer [disableClose]="true" mode="side" opened position="end" class="container__content-sidenav">
+  <mat-drawer
+    [disableClose]="true"
+    mode="side"
+    opened
+    position="start"
+    class="container__content-sidenav"
+  >
     <app-side-navigation></app-side-navigation>
   </mat-drawer>
-
 </mat-drawer-container>

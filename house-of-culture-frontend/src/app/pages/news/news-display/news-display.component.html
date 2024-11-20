@@ -1,31 +1,33 @@
-<div class="container">
+<app-category-filter
+  [categories]="categories"
+  (filterCategory)="fetchCategoryFilter($event)"
+  class="filter"
+></app-category-filter>
 
-  <app-category-filter
-    [categories]="categories"
-    (filterCategory)="fetchCategoryFilter($event)"
-    class="filter"
-  ></app-category-filter>
-
-  <div *ngIf="numberOfPages > 0; else noData">
-    <div class="card-container">
-      <div *ngFor="let news of newsData">
-        <app-single-news-card class="app-single-news-card" [news]="news"></app-single-news-card>
-      </div>
+<div *ngIf="numberOfPages > 0; else noData">
+  <div class="card-container">
+    <div *ngFor="let news of newsData">
+      <app-single-news-card
+        class="app-single-news-card"
+        [news]="news"
+      ></app-single-news-card>
     </div>
-
-    <app-pagination class="app-pagination"
-                    [numberOfPages]="numberOfPages"
-                    (currentPageEmitter)="fetchNewsByPage($event)"
-    ></app-pagination>
   </div>
-  <ng-template #noData>
-    <mat-card class="no-posts-card">
-      <mat-card-header>
-        <mat-card-title><h4>Brak aktualności</h4></mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        W tej chwili na stronie nie ma żadnych aktualności spełniających zadane kryteria.
-      </mat-card-content>
-    </mat-card>
-  </ng-template>
+
+  <app-pagination
+    class="app-pagination"
+    [numberOfPages]="numberOfPages"
+    (currentPageEmitter)="fetchNewsByPage($event)"
+  ></app-pagination>
 </div>
+<ng-template #noData>
+  <mat-card class="no-posts-card">
+    <mat-card-header>
+      <mat-card-title><h4>Brak aktualności</h4></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      W tej chwili na stronie nie ma żadnych aktualności spełniających zadane
+      kryteria.
+    </mat-card-content>
+  </mat-card>
+</ng-template>

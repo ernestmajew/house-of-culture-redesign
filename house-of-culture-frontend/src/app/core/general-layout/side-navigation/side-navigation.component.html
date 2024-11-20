@@ -1,59 +1,64 @@
 <div class="side-navigation">
   <div class="side-navigation__button_container">
-    <button mat-button class="side-navigation__button_container__nav-button" [routerLink]="['/news']"
-            [routerLinkActive]="['active-button']"
-            [class.active-button]="isButtonActive('/news')">
-      <mat-icon class="side-navigation__button_container__icon">newspaper</mat-icon>
-      Aktualności
-    </button>
-    <button
-      *appAccess="UserRoleTs.CHILD"
-      mat-button
-      class="side-navigation__button_container__nav-button" [routerLink]="['/my-activities']"
-      [routerLinkActive]="['active-button']"
-      [class.active-button]="isButtonActive('/my-activities')">
-      <mat-icon class="side-navigation__button_container__icon">extension</mat-icon>
-      Moje zajęcia
-    </button>
-    <button mat-button class="side-navigation__button_container__nav-button" [routerLink]="['/activities']"
-            [routerLinkActive]="['active-button']"
-            [class.active-button]="isButtonActive('/activities')">
-      <mat-icon class="side-navigation__button_container__icon">calendar_month</mat-icon>
-      Oferta zajęć
-    </button>
-    <button
-      *appAccess="UserRoleTs.INSTRUCTOR"
-      mat-button
-      class="side-navigation__button_container__nav-button"
-      [routerLink]="['/instructor']"
-      [routerLinkActive]="['active-button']"
-      [class.active-button]="isButtonActive('/instructor')">
-      <mat-icon class="side-navigation__button_container__icon">school</mat-icon>
-      Instruktor
-    </button>
-    <button
-      *appAccess="UserRoleTs.EMPLOYEE"
-      mat-button
-      class="side-navigation__button_container__nav-button"
-      [routerLink]="['/manage']"
-      [routerLinkActive]="['active-button']"
-      [class.active-button]="isButtonActive('/manage')">
-      <mat-icon class="side-navigation__button_container__icon">work</mat-icon>
-      <a>Pracownik</a>
-    </button>
+    <app-nav-button icon="newspaper" route="/news" label="Aktualności">
+    </app-nav-button>
+
+    <app-nav-button
+      icon="extension"
+      route="/my-activities"
+      label="Moje zajęcia"
+      [role]="UserRoleTs.CHILD"
+    >
+    </app-nav-button>
+
+    <app-nav-button
+      icon="calendar_month"
+      route="/activities"
+      label="Oferta zajęć"
+    >
+    </app-nav-button>
+
+    <app-nav-button
+      icon="school"
+      route="/instructor"
+      label="Instruktor"
+      [role]="UserRoleTs.INSTRUCTOR"
+    >
+    </app-nav-button>
+
+    <app-nav-button
+      icon="work"
+      route="/manage"
+      label="Pracownik"
+      [role]="UserRoleTs.EMPLOYEE"
+    >
+    </app-nav-button>
   </div>
 
-  <div *ngIf="contactInfo | async as contactInfo" class="side-navigation__contact-info">
-    <p>{{contactInfo.addressFirstLine}}</p>
-    <p>{{contactInfo.addressSecondLine}}</p>
+  <div
+    *ngIf="contactInfo | async as contactInfo"
+    class="side-navigation__contact-info"
+  >
+    <p>{{ contactInfo.addressFirstLine }}</p>
+    <p>{{ contactInfo.addressSecondLine }}</p>
     <div class="side-navigation__contact-info__space"></div>
-    <p>{{contactInfo.email}}</p>
-    <p>{{contactInfo.phoneNumber}}</p>
+    <p>{{ contactInfo.email }}</p>
+    <p>{{ contactInfo.phoneNumber }}</p>
     <div class="side-navigation__contact-info__space"></div>
-    <a *ngIf="contactInfo.facebookUrl" class="side-navigation__contact-info-social__button" href="{{contactInfo.facebookUrl}}" role="button">
+    <a
+      *ngIf="contactInfo.facebookUrl"
+      class="side-navigation__contact-info-social__button"
+      href="{{ contactInfo.facebookUrl }}"
+      role="button"
+    >
       <i class="fab fa-facebook-f fa-lg"></i>
     </a>
-    <a *ngIf="contactInfo.instagramUrl" class="side-navigation__contact-info-social__button" href="{{contactInfo.instagramUrl}}" role="button">
+    <a
+      *ngIf="contactInfo.instagramUrl"
+      class="side-navigation__contact-info-social__button"
+      href="{{ contactInfo.instagramUrl }}"
+      role="button"
+    >
       <i class="fab fa-instagram fa-lg"></i>
     </a>
   </div>

@@ -1,0 +1,28 @@
+@if(role) {
+<button
+  mat-button
+  class="side-navigation__button_container__nav-button"
+  [routerLink]="[route]"
+  [routerLinkActive]="['active-button']"
+  [class.active-button]="isButtonActive(route)"
+>
+  <mat-icon class="side-navigation__button_container__icon">{{
+    icon
+  }}</mat-icon>
+  {{ label }}
+</button>
+} @else {
+<button
+  *appAccess="role"
+  mat-button
+  class="side-navigation__button_container__nav-button"
+  [routerLink]="[route]"
+  [routerLinkActive]="['active-button']"
+  [class.active-button]="isButtonActive(route)"
+>
+  <mat-icon class="side-navigation__button_container__icon">{{
+    icon
+  }}</mat-icon>
+  {{ label }}
+</button>
+}

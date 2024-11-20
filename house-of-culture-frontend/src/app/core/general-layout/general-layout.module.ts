@@ -9,12 +9,14 @@ import {AsyncPipe, NgIf} from "@angular/common";
 import {AuthButtonsComponent} from "../../pages/auth/auth-buttons/auth-buttons.component";
 import {AccessDirective} from "../guards/directive/access.directive";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { NavButtonComponent } from './side-navigation/nav-button/nav-button.component';
 
 @NgModule({
   declarations: [
     GeneralLayoutComponent,
     SideNavigationComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    NavButtonComponent
   ],
     imports: [
         AngularMaterialModule,

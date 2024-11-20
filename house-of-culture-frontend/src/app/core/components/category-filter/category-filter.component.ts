@@ -1,8 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
-import {CategoryResponseTs} from 'out/api/model/category-response';
-import {ActivatedRoute} from "@angular/router";
-import {take} from "rxjs";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
+import { CategoryResponseTs } from 'out/api/model/category-response';
+import { ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-category-filter',
@@ -22,29 +28,21 @@ export class CategoryFilterComponent implements OnInit {
   @Output() filterCategory = new EventEmitter<number | null>();
   selectedCategory: number | null = null;
 
-  showSelect = false;
+  showSelect = true;
 
-  constructor(private route: ActivatedRoute) {
-  }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-   this.route.queryParams.pipe(take(1)).subscribe(
-      params => {
-        const category = params['category'];
-        if(category){
-          this.selectedCategory = +category;
-          this.showSelect= false;
-        }
+    this.route.queryParams.pipe(take(1)).subscribe((params) => {
+      const category = params['category'];
+      if (category) {
+        this.selectedCategory = +category;
+        this.showSelect = false;
       }
-    )
-  }
-
-  toggleSelect() {
-    this.showSelect = !this.showSelect;
+    });
   }
 
   filterByCategory() {
-    this.toggleSelect();
     this.filterCategory.emit(this.selectedCategory);
   }
 }

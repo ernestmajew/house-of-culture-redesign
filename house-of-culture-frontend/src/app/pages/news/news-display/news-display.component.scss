@@ -11,14 +11,19 @@
 .container {
   width: 94%;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }
 
 .card-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 6rem;
+  margin: auto 0;
+  width: 100%;
+  max-width: 1650px;
+  display: flex;
+  gap: 2rem;
   align-items: start;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
 .app-single-news-card {

@@ -1,5 +1,6 @@
 .container-content {
-  max-width: 100%;
+  width: 320px;
+
   display: flex;
 
   &__header {
@@ -19,7 +20,7 @@
     position: absolute;
     top: 6%;
     right: 5%;
-    background-color: rgba(0, 0, 0, 0.50);
+    background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
     padding: 5px;
     border-radius: 4px;
