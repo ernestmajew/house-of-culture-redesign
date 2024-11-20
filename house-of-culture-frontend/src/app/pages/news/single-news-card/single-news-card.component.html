@@ -1,0 +1,22 @@
+<a (click)="navigateForMore()">
+  <mat-card class="container-content">
+    <div class="image-wrapper">
+      <img #img mat-card-image src="{{newsMainPicture}}" (error)="img.src = 'assets/noImage.jpg'">
+      <div class="date">{{ normalizedDate }}</div>
+    </div>
+    <mat-card-header class="container-content__header">
+      <mat-card-title>{{ news.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ news.description }}</p>
+    </mat-card-content>
+    <mat-card-actions class="custom-actions">
+      <button mat-icon-button (click)="navigateForFb()" *ngIf="news.fbPostUrl" class="small-icon-button">
+        <i class="fab fa-facebook-f fa-sm"></i>
+      </button>
+      <button mat-icon-button (click)="navigateForIg()" *ngIf="news.igPostUrl" class="small-icon-button">
+        <i class="fab fa-instagram fa-sm"></i>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</a>

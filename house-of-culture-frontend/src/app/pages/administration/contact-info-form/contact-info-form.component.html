@@ -1,0 +1,42 @@
+<app-return-button [text]="'Powrót'"></app-return-button>
+<div class="container">
+  <form [formGroup]="contactInfoForm" (ngSubmit)="onSubmit()" class="container">
+    <h1 class="header">Zaktualizuj dane kontaktowe</h1>
+    <mat-form-field>
+      <mat-label>Adres 1</mat-label>
+      <input matInput formControlName="addressFirstLine" placeholder="ul. Długa 38">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Adres 2</mat-label>
+      <input matInput formControlName="addressSecondLine" placeholder="51-354 Wrocław">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Adres email</mat-label>
+      <input matInput formControlName="email" placeholder="dom@kultury.pl">
+      <mat-icon matIconSuffix>mail</mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Numer telefonu</mat-label>
+      <input matInput formControlName="phoneNumber" placeholder="+48 111 111 111" maxlength="15">
+      <mat-icon matIconSuffix>phone</mat-icon>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Link do strony Facebook</mat-label>
+      <input matInput formControlName="facebookUrl">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Link do profilu Instagram</mat-label>
+      <input matInput formControlName="instagramUrl">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Szerokość geograficzna</mat-label>
+      <input matInput formControlName="latitude">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Dlugość geograficzna</mat-label>
+      <input matInput formControlName="longitude">
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" type="submit" [disabled]="!contactInfoForm.valid">Zapisz</button>
+  </form>
+</div>

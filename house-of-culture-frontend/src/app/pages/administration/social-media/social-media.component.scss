@@ -1,0 +1,53 @@
+.main-container {
+  div:last-child {
+    margin-top: 30px;
+  }
+}
+
+mat-card {
+  width: 30%;
+  max-width: 330px;
+}
+
+mat-card-title {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  mat-icon {
+    margin-right: 3px;
+  }
+}
+
+mat-card-content {
+  color: gray;
+  margin-top: 5px;
+}
+
+mat-card-actions {
+  display: flex;
+  flex-direction: row-reverse;
+
+  button {
+    margin-left: 10px;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+i {
+  margin-right: 3px;
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  & > * {
+    margin-right: 20px;
+  }
+}

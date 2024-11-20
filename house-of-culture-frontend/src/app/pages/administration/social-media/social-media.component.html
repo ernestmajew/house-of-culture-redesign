@@ -1,0 +1,75 @@
+<app-return-button [text]="'Powrót'"></app-return-button>
+<div class="main-container">
+  <h1>Integracja mediów społecznościowych</h1>
+
+  <div class="cards-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>person</mat-icon>
+          {{this.authenticationData?.username ?? "BRAK"}}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Połączony użytkownik
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="authenticateFacebookApi()">
+          {{isUserConnected ? "Zmień" : "Połącz"}}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card *ngIf="this.isUserConnected">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>facebook</mat-icon>
+          <a
+            href="{{this.authenticationData?.pageHref}}"
+            target="_blank"
+            *ngIf="isPageConnected"
+          >
+            {{this.authenticationData?.pageName}}
+          </a>
+          <ng-container *ngIf="!isPageConnected">
+            BRAK
+          </ng-container>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Połączona strona Facebook
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="openConnectPageDialog()">
+          {{isPageConnected ? "Zmień" : "Połącz"}}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card *ngIf="this.isUserConnected">
+      <mat-card-header>
+        <mat-card-title>
+          <i class="fab fa-instagram fa-lg"></i>
+          <a
+            href="{{this.authenticationData?.instagramHref}}"
+            target="_blank"
+            *ngIf="isInstagramConnected"
+          >
+            {{this.authenticationData?.instagramUsername}}
+          </a>
+          <ng-container *ngIf="!isInstagramConnected">
+            BRAK
+          </ng-container>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        Połączone konto Instagram
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="openConnectPageDialog()">
+          {{isInstagramConnected ? "Zmień" : "Połącz"}}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

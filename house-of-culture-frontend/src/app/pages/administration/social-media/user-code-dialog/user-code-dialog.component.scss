@@ -1,0 +1,14 @@
+h3 {
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: var(--mdc-dialog-supporting-text-color, rgba(0, 0, 0, 0.6));
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}

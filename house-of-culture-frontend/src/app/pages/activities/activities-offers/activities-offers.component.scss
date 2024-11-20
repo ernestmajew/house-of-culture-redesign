@@ -1,0 +1,17 @@
+.bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.search-bar {
+  width: 40%;
+  max-width: 450px;
+}
+
+
+.no-results{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

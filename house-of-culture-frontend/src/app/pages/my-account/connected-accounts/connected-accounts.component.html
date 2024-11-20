@@ -1,0 +1,13 @@
+<div *ngIf="children">
+  <div class="header">
+    <h3>Połączone konta</h3>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="users">
+    <app-account-card
+      *ngFor="let child of children"
+      [user]="child">
+    </app-account-card>
+  </div>
+</div>

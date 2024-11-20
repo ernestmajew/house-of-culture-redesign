@@ -1,0 +1,18 @@
+.content {
+  margin-top: 5px;
+  overflow: visible;
+  padding-bottom: 0;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+
+  & > * {
+    width: 30%;
+  }
+}

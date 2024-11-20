@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 2,
+  "generator-cli": {
+    "version": "6.4.0",
+    "generators": {
+      "client": {
+        "generatorName": "typescript-angular",
+        "inputSpec": "../api-definition/client.yaml",
+        "glob": ".",
+        "output": "out/api/",
+        "modelNameSuffix": "Ts",
+        "additionalProperties": {
+          "//": "See https://openapi-generator.tech/docs/generators/typescript-angular/ :",
+          "enumPropertyNaming": "UPPERCASE",
+          "fileNaming": "kebab-case",
+          "ngVersion": "16.13.2",
+          "nullSafeAdditionalProps": true,
+          "serviceSuffix": "ApiService",
+          "stringEnums": true,
+          "supportsES6": true,
+          "useSingleRequestParameter": true
+        },
+        "typeMappings": {
+          "//": "As JS's Set type isn't serializable we're mapping it to arrays instead:",
+          "set": "Array"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+<div class="login-page">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="form" (ngSubmit)="login()">
+      <mat-card-content>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput autocomplete="email" placeholder="Email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Hasło</mat-label>
+          <input type="password" autocomplete="current-password" matInput placeholder="Hasło" formControlName="password">
+        </mat-form-field>
+
+        <p *ngIf="error" class="error">
+          {{ errorMessage }}
+        </p>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button
+          type="submit"
+          mat-button
+          [disabled]="form.invalid"
+        >
+          Login
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+  <div class="question-button">
+    <div>
+      Nie masz jeszcze konta?
+      <button
+        mat-button
+        color="warn"
+        class="register"
+        (click)="toRegisterPage()"
+      >
+        Zarejestruj się
+      </button>
+    </div>
+    <button
+      mat-button
+      color="warn"
+      class="forgot-password"
+      (click)="toEmailInput()"
+    >
+      Zapomniałeś hasła?
+    </button>
+  </div>
+</div>
+

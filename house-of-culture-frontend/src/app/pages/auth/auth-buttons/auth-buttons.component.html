@@ -1,0 +1,28 @@
+<button mat-button class="toolbar__icon"
+        (click)="login()"
+        *ngIf="!loggedUserToken()">
+  Login
+  <mat-icon>login</mat-icon>
+</button>
+
+<div *ngIf="loggedUserToken()">
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button
+      (click)="myAccount()"
+      mat-menu-item>
+      <mat-icon>person</mat-icon>
+      <span>Moje konto</span>
+    </button>
+    <button
+      mat-menu-item
+      class="logout"
+      (click)="logout()"
+    >
+      Wyloguj
+      <mat-icon color="warn">logout</mat-icon>
+    </button>
+  </mat-menu>
+</div>

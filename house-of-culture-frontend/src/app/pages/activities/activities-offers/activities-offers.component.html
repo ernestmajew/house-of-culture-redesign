@@ -1,0 +1,33 @@
+<div>
+  <div class="bar">
+    <button class="container-content__button" mat-button (click)="backToPreviousPage()">
+      <mat-icon>arrow_back_ios</mat-icon>
+      {{'Powrót'}}
+    </button>
+    <mat-form-field class="search-bar" appearance="fill">
+      <input matInput type="text" placeholder="Szukaj" [(ngModel)]="searchText" (keyup.enter)="searchByText()">
+      <mat-icon matSuffix (click)="clearSearchText()" *ngIf="searchText">clear</mat-icon>
+      <mat-icon matSuffix (click)="searchByText()">search</mat-icon>
+    </mat-form-field>
+    <div>
+      <app-category-filter
+        [categories]="categories"
+        (filterCategory)="fetchCategoryFilter($event)"
+      ></app-category-filter>
+    </div>
+  </div>
+  <app-activities-row
+    [activities]="activities"
+  ></app-activities-row>
+  <app-pagination
+    *ngIf="activities.length"
+    class="app-pagination"
+    [numberOfPages]="numberOfPages"
+    (currentPageEmitter)="fetchNewsByPage($event)"
+  ></app-pagination>
+  <div *ngIf="!activities.length">
+    <div class="no-results">
+      <h1 class="no-results">Brak wyników ://</h1>
+    </div>
+  </div>
+</div>

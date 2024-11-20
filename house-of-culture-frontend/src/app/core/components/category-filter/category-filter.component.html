@@ -1,0 +1,22 @@
+<div class="category-filter-container">
+  <button
+    mat-icon-button
+    color="primary"
+    (click)="toggleSelect()"
+    class="filter-button"
+    matBadge="{{ selectedCategory ? '!' : '' }}"
+    matBadgeColor="warn"
+  >
+    <mat-icon>filter_list</mat-icon>
+  </button>
+
+  <div class="filter-select" [ngClass]="{'show': showSelect}" [@selectAnimation]="showSelect ? 'show' : 'hide'">
+    <mat-form-field>
+      <mat-label>Kategoria</mat-label>
+      <mat-select [(value)]="selectedCategory" (selectionChange)="filterByCategory()">
+        <mat-option [value]="null">Wszystkie</mat-option>
+        <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

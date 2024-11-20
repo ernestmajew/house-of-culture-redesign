@@ -1,0 +1,58 @@
+.content-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 1rem 0 1rem;
+
+  app-calendar {
+    width: 66%;
+  }
+
+  &__info-box {
+    display: flex;
+    flex-direction: column;
+    width: 34%;
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      width: 94%;
+      margin: 0 auto;
+
+      &__list {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: auto;
+
+          h4 {
+            margin: 2rem auto 2rem;
+          }
+      }
+
+      &__form {
+        display: flex;
+        flex-direction: column;
+
+        h4 {
+          margin: 0 auto 2rem;
+        }
+
+        &__row {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          gap: 0.5rem;
+        }
+      }
+    }
+
+    .datepicker {
+      width: 100%;
+      margin-bottom: 1rem;
+
+      mat-hint {
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+}

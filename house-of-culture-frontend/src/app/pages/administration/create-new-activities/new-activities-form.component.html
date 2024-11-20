@@ -1,0 +1,138 @@
+<div class="container-content">
+  <app-return-button  class="container-content__button" [text]="'Powrót'"></app-return-button>
+
+  <h2 class="container-content__header">
+    Utwórz nowe zajęcia
+  </h2>
+
+  <!-- nazwa zajęć -->
+  <h3 class="container-content__input">
+    Nazwa zajęć
+  </h3>
+  <div
+    *ngIf="activityForm.get('name')?.invalid && (activityForm.get('name')?.dirty || activityForm.get('name')?.touched)"
+    class="error-message">
+    <span *ngIf="activityForm.get('name')?.hasError('required')">Nazwa zajęć jest wymagana.</span>
+  </div>
+  <mat-form-field [formGroup]="activityForm">
+    <input matInput placeholder="Wpisz nazwe zajęć tutaj..." formControlName="name">
+  </mat-form-field>
+
+  <!-- opis zajęć -->
+  <h3 class="container-content__label">
+    Opis zajęć
+  </h3>
+  <app-editor (htmlContentChange)="onHtmlContentChange($event)"
+              [placeholder]="placeholder"
+              [errorMessage]="errorMessage">
+  </app-editor>
+
+  <!-- prowadzący -->
+  <h3 class="container-content__input">
+    Prowadzący
+  </h3>
+  <div
+    *ngIf="activityForm.get('host')?.invalid && (activityForm.get('host')?.dirty || activityForm.get('host')?.touched)"
+    class="error-message">
+    <span *ngIf="activityForm.get('host')?.hasError('required')">Prowadzący zajęcia jest wymagany.</span>
+  </div>
+  <mat-form-field class="container-content__host-input" [formGroup]="activityForm">
+    <input matInput placeholder="Wybierz prowadzącego" formControlName="host" [matAutocomplete]="auto" #hostInput>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let host of filteredHosts | async" [value]="host | fullname">
+        {{ host | fullname }}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-icon matSuffix>
+      keyboard_arrow_down
+    </mat-icon>
+  </mat-form-field>
+
+  <!-- kategorie -->
+  <h3 class="container-content__label">
+    Kategorie
+  </h3>
+  <app-category-selector
+    [formGroup]="activityForm"
+    (updateCategoriesControl)="onChosenCategoriesChange($event)">
+  </app-category-selector>
+
+  <!-- kalendarz -->
+  <h3 class="container-content__input">
+    Terminarz zajęć
+  </h3>
+  <app-calendar-form [isThisEdit]="false"
+                     [frequencies]="frequencies"
+                     [eventTitle]="activityForm.get('name')?.value"
+                    (emitEventsChange)="onSelectedEventChange($event)"
+  ></app-calendar-form>
+
+  <!-- dane dodatkowe -->
+  <h3 class="container-content__input">Dane dodatkowe</h3>
+  <div [formGroup]="activityForm" class="container-content__additional-info-inputs">
+    <div class="container-content__additional-info-inputs__row">
+      <div class="container-content__additional-info-inputs__row__single-input">
+        <h4 class="container-content__input">Minimalny wiek uczestnika</h4>
+        <mat-form-field>
+          <input matInput min="0" max="99" type="number" formControlName="minimalAge"
+                 [disabled]="activityForm.get('minimalAge')!.disabled">
+        </mat-form-field>
+        <mat-checkbox (change)="toggleFormControl('minimalAge')" color="primary"
+                      [checked]="!activityForm.get('minimalAge')!.disabled"></mat-checkbox>
+      </div>
+
+      <div class="container-content__additional-info-inputs__row__single-input">
+        <h4 class="container-content__input">Maksymalny wiek uczestnika</h4>
+        <mat-form-field>
+          <input matInput min="0" max="99" type="number" formControlName="maxAge"
+                 [disabled]="activityForm.get('maxAge')!.disabled">
+        </mat-form-field>
+        <mat-checkbox (change)="toggleFormControl('maxAge')" color="primary"
+                      [checked]="!activityForm.get('maxAge')!.disabled"></mat-checkbox>
+      </div>
+    </div>
+
+    <div class="container-content__additional-info-inputs__row">
+      <div class="container-content__additional-info-inputs__row__single-input">
+        <h4 class="container-content__input">Liczba miejsc</h4>
+        <mat-form-field>
+          <input matInput min="0" type="number" formControlName="placeNumber"
+                 [disabled]="activityForm.get('placeNumber')!.disabled">
+        </mat-form-field>
+        <mat-checkbox (change)="toggleFormControl('placeNumber')" color="primary"
+                      [checked]="!activityForm.get('placeNumber')!.disabled"></mat-checkbox>
+      </div>
+
+      <div class="container-content__additional-info-inputs__row__single-input">
+        <h4 class="container-content__input">Koszt</h4>
+        <mat-form-field>
+          <input matInput min="0" type="number" formControlName="cost"
+                 [disabled]="activityForm.get('cost')!.disabled">
+        </mat-form-field>
+        <mat-checkbox (change)="toggleFormControl('cost')" color="primary"
+                      [checked]="!activityForm.get('cost')!.disabled"></mat-checkbox>
+      </div>
+    </div>
+  </div>
+
+  <!-- zdjęcia -->
+  <div class="container-content__tooltip-label">
+    <h3 class="container-content__tooltip-label__label">
+      Zdjęcia
+    </h3>
+    <mat-icon
+      matTooltip="Kolejność dodanych zdjęć ma znaczenie. Pierwsze zdjęcie jest zdjęciem głównym, następne określają kolejność wyświetlania"
+      matTooltipPosition="above"
+      class="container-content__tooltip-label__icon">help
+    </mat-icon>
+  </div>
+  <app-images-upload (selectImagesEvent)="onUploadImageChange($event)"></app-images-upload>
+
+  <button mat-raised-button
+          color="primary"
+          class="container-content__accept-button"
+          (click)="createNewActivity()"
+          [disabled]="activityForm.invalid">
+    Utwórz
+  </button>
+</div>

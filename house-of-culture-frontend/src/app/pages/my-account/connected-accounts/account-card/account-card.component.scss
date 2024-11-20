@@ -1,0 +1,9 @@
+.account-card{
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+
+  &__name{
+    font-weight: bolder;
+  }
+}

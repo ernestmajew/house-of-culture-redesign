@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Wybierz stronę do połączenia</h1>
+<div mat-dialog-content class="content">
+  <mat-form-field>
+    <mat-label>Strona Facebook</mat-label>
+    <mat-select [(value)]="selectedPage">
+      <mat-option *ngFor="let page of availablePages" [value]="page">
+        {{page.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-checkbox [disabled]="!isInstagramConnected()" [checked]="connectInstagram">
+      {{instagramCheckboxText()}}
+  </mat-checkbox>
+</div>
+<div mat-dialog-actions class="buttons">
+  <button mat-stroked-button color="primary" (click)="closeDialog()">Anuluj</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="getOnCloseResult()">Połącz</button>
+</div>

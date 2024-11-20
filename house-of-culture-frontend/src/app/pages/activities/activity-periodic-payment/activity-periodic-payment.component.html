@@ -1,0 +1,32 @@
+<h1>Płatność okresowa</h1>
+
+<form [formGroup]="paymentForm" (ngSubmit)="createPaymentInvoice()" class="payment-form">
+  <h3>Wybierz okres</h3>
+  <mat-form-field class="range-input">
+    <mat-label>Wybierz zakres dat</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input formControlName="start" matStartDate placeholder="Data początkowa">
+      <input formControlName="end" matEndDate placeholder="Data końcowa">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+
+  <p *ngIf="paymentForm.hasError('endBeforeStart')" class="text-danger">Data końcowa musi być po dacie początkowej
+    zakresu.</p>
+
+  <h3>Wybierz osoby do zapłaty</h3>
+  <p-multiSelect
+    class="auto-grow"
+    [options]="availableUsersToPayFor"
+    formControlName="selectedUsers"
+    optionLabel="displayedLabel"
+    optionValue="id"
+    display="chip"
+    placeholder="Wybierz osoby"
+    [style]="{'width':'100%', 'background': 'transparent', 'height': '60px', 'align-items': 'center', 'border-radius': '4px', 'border-color': 'gray'}"
+    [panelStyle]="{'width':'100%'}"
+  />
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="paymentForm.invalid">Zapłać</button>
+</form>

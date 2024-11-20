@@ -1,0 +1,33 @@
+<div>
+    <app-activities-row
+      *ngIf="activities"
+      title="Najpopularniejsze"
+      [activities]="activities"
+    ></app-activities-row>
+
+  <div>
+    <h2>Rodzaje zajęć</h2>
+    <div class="categories">
+      <div *ngFor="let category of categoriesMain; let i = index" (click)="navigateToCategory(category.id)"
+           [class]="'category-' + (i + 1) + ' categories__item'">
+        <p class="categories__item__title">{{ category.name }}</p>
+        <p class="subtitle">Zapisz się na zajęcia</p>
+      </div>
+      <div (click)="navigateToCategory()" class="category-4 categories__item">
+        <p class="categories__item__title">Inne...</p>
+        <p class="subtitle">Zobacz także inne</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rest-activities">
+  <app-activities-row
+    *ngFor="let categorizedActivity of categorizedActivities; let i = index"
+    title="{{ categorizedActivity.category_name}}"
+    [categoryId]="categorizedActivity.category_id!!"
+    [activities]="categorizedActivity.activities!!"
+  >
+  </app-activities-row>
+  </div>
+</div>
+

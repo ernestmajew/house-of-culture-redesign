@@ -1,0 +1,60 @@
+<app-return-button [text]="'Powrót'"></app-return-button>
+
+<h1>{{activityBasicInfo?.title}}</h1>
+
+<div class="main-container">
+  <app-enroll-occurrences-selector
+    [occurrences]="getSelectedUserAvailableSingleEvents()"
+    [selectedNumberOfEvents]="selectedOccurrencesNumber"
+  />
+
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="enrollmentForm" (ngSubmit)="showEnrollDialog()" class="form-container">
+        <h2><span>Wybierz osobę</span></h2>
+        <mat-radio-group
+          aria-label="Wybierz osobę do zapisu"
+          [formControlName]="'userId'"
+          class="users-radio-buttons"
+        >
+          <mat-radio-button
+            *ngFor="let elem of usersAvailableSingleEvents"
+            [value]=elem.userId
+            [disabled]="elem.status != EnrollmentAvailabilityStatusTs.AVAILABLE"
+            [matTooltip]="getUserTooltip(elem.status)"
+            matTooltipPosition="left"
+          >
+            {{elem.userFullName}}
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <h2><span>Wybierz liczbę wystąpień</span></h2>
+        <p>Najbliższe wolne zajęcia: {{closestAvailableSingleEventText}}</p>
+        <mat-form-field>
+          <mat-label>Liczba wystąpień</mat-label>
+          <input matInput [formControlName]="'occurrencesNumber'" type="number" min="1" [max]="maxOccurrences">
+          <mat-icon
+            matSuffix
+            (click)="setMaxOccurrences()"
+            class="occurrences-input-select-all"
+            matTooltip="Wybierz wszystkie dostępne terminy"
+          >select_all</mat-icon>
+        </mat-form-field>
+
+        <h2><span>Podsumowanie</span></h2>
+        <p>Wybrana liczba wystąpień: {{selectedOccurrencesNumber}}</p>
+        <p>Czas trwania wybranych zajęć: {{selectedOccurrencesTimeRange}}</p>
+        <p *ngIf="activityBasicInfo?.cost">Koszt pojedynczych zajęć: {{activityBasicInfo?.cost}} zł</p>
+        <p>Łączny koszt: {{totalCost}}</p>
+        <button
+          mat-raised-button color="accent"
+          class="enroll-button"
+          type="submit"
+          [disabled]="!enrollmentForm.valid"
+        >
+          Zapisz się
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

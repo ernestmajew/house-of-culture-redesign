@@ -1,0 +1,65 @@
+<app-return-button [text]="'Powrót'"></app-return-button>
+
+<h1>Historia płatności - {{event.title}}</h1>
+<h2>Instruktor: {{user | fullname}}</h2>
+
+<h3 *ngIf="!unpaidEnrollments">Wszystkie terminy zostały już opłacone.</h3>
+
+<mat-card *ngIf="unpaidEnrollments" class="create-payment-card">
+  <form [formGroup]="paymentForm">
+    <mat-card-header>
+      <mat-card-title>Liczba nieopłaconych jeszcze terminów: {{ unpaidEnrollments }}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="occurrences-form-container">
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Liczba terminów</mat-label>
+        <input
+          matInput
+          formControlName="occurrencesNumber"
+          type="number" min="1" [max]="unpaidEnrollments"
+          [attr.disabled]="occurrencesNumberDisabled"
+        >
+      </mat-form-field>
+      <mat-checkbox formControlName="payForAll">Opłać wszystkie</mat-checkbox>
+      <button mat-raised-button color="primary" (click)="showPaymentDialog()">
+        Zapłać
+      </button>
+    </mat-card-content>
+  </form>
+</mat-card>
+
+<div>
+  <h2>Historia płatności</h2>
+  <ng-container *ngIf="historyOfPayments.length > 0; else noPayments">
+    <div *ngFor="let payment of historyOfPayments" class="history-cards">
+      <mat-card class="card">
+        <mat-card-content>
+          <div class="row">
+            <div class="info-with-icon">
+              <mat-icon>today</mat-icon>
+              <p>Data: <b>{{payment.date}}</b></p>
+            </div>
+            <div class="info-with-icon">
+              <mat-icon>attach_money</mat-icon>
+              <p>Kwota: <b>{{payment.amount}}zł</b></p>
+            </div>
+            <div class="info-with-icon">
+              <mat-icon>history</mat-icon>
+              <p>Status: <b appPaymentStatusStyle [paymentStatus]="payment.status">{{ payment | paymentStatus}}</b></p>
+            </div>
+          </div>
+          <p class="paid-enrolments-number">Liczba opłaconych zajęć: <b>{{payment.numberOfEnrolments}}</b></p>
+          <p class="periodic-payment" *ngIf="payment.periodicPayment">Opłacone w ramach płatności okresowej</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-container>
+  <ng-template #noPayments>
+    <mat-card class="no-history">
+      <mat-card-content>
+        <h4> Brak histori płatności </h4>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</div>

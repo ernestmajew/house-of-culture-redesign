@@ -1,0 +1,46 @@
+.main-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 67% 30%;
+  grid-gap: 3%;
+}
+
+.users-radio-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-container {
+  // add lines on either side of headers
+  h2{
+    overflow: hidden;
+    text-align: center;
+  }
+  h2 > span{
+    position: relative;
+    display: inline-block;
+  }
+  h2 > span:before, h2 > span:after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    border-bottom: 1px solid;
+    width: 100vw;
+    margin: 0 15px;
+  }
+  h2 > span:before{
+    right: 100%;
+  }
+  h2 > span:after{
+    left: 100%;
+  }
+}
+
+.occurrences-input-select-all {
+  cursor: pointer;
+}
+
+.enroll-button {
+  float: right;
+}

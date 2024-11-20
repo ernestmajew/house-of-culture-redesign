@@ -1,0 +1,46 @@
+<mat-dialog-content class="mat-typography content">
+  <h2
+    matTooltip="Kliknij aby przejść do strony wydarzenia oraz edycji"
+    class="header"
+  >
+    <a
+      class="header__link"
+      href="/activities/{{singleEvent.mainEventId}}">
+      {{singleEvent.title}}
+    </a>
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </h2>
+  <h3>Data zajeć: {{singleEvent.startTime | date: 'd MMM yyyy HH:mm'}} - {{singleEvent.endTime  | date: 'HH:mm'}}</h3>
+  <mat-accordion>
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Wyślij wiadomość do uczestników
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form
+        [formGroup]="emailForm"
+        class="mail-form"
+      >
+        <mat-form-field>
+          <mat-label>Temat</mat-label>
+          <input matInput placeholder="Temat" formControlName="subject">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Treść</mat-label>
+          <textarea matInput placeholder="Treść" formControlName="content"></textarea>
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="sendEmail()"
+          [disabled]="!emailForm.valid"
+        >Wyślij</button>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</mat-dialog-content>
+

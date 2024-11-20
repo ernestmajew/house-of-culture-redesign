@@ -1,0 +1,62 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+
+    mat-label {
+      margin-right: 8px;
+    }
+  }
+}
+
+h4 {
+  margin: 0 0;
+}
+
+mat-card {
+  min-width: 480px;
+  margin-bottom: 5px;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .text {
+    display: flex;
+    flex-direction: row;
+    min-width: 280px;
+    flex-wrap: nowrap;
+    font-size: 15px;
+    white-space: nowrap;
+    align-items: center;
+  }
+
+  .cost {
+    display: flex;
+    flex-direction: row;
+    font-size: 15px;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+
+  .icon-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: nowrap;
+    margin-right: 15px;
+    margin-left: 10px;
+  }
+}
+
+.red-text {
+  color: red;
+}

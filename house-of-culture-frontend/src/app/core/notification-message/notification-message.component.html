@@ -1,0 +1,15 @@
+<div class="content-container">
+  <ng-container *ngFor="let alert of alerts">
+    <div>
+      <a class="close" (click)="removeAlert(alert)"></a>
+      <div class="single-notification fading"
+           [ngClass]="'single-notification__' + alert.type.toLowerCase()">
+        <mat-icon class="content-container__icon">{{alert | alertTypeIcon}}</mat-icon>
+        <div class="content-container__text">
+          <span [innerHTML]="alert.message"></span>
+        </div>
+        <mat-icon class="content-container__close" (click)="removeAlert(alert)">close</mat-icon>
+      </div>
+    </div>
+  </ng-container>
+</div>

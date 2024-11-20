@@ -1,0 +1,45 @@
+<div class="container-content">
+  <app-return-button [text]="'Powrót'"></app-return-button>
+
+  <div class="container-content__employee-buttons">
+    <button
+      *appAccess="UserRoleTs.EMPLOYEE"
+      mat-icon-button
+      color="primary"
+      (click)="editPost()">
+      <mat-icon>edit</mat-icon>
+    </button>
+
+    <button
+      *appAccess="UserRoleTs.EMPLOYEE"
+      mat-icon-button
+      color="warn"
+      (click)="deletePost()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
+  <div class="container-content__main">
+    <div class="container-content__main__info">
+      <mat-chip-listbox>
+        <mat-chip *ngFor="let category of news?.categories">{{ category.name }}</mat-chip>
+      </mat-chip-listbox>
+      <p class="author-info">{{postInfo}}</p>
+    </div>
+    <gallery gallerize [counter]="false" [items]="images" class="gallery center"></gallery>
+    <div class="container-content__main__title">
+      {{news.title}}
+    </div>
+    <div>
+      <span [innerHtml]="sanitizeDescription(news.description)"></span>
+    </div>
+    <div class="container-content__main__action-buttons">
+      <button mat-icon-button (click)="navigateForFb()" [disabled]="!news.fbPostUrl">
+        <i class="fab fa-facebook-f fa-sm"></i>
+      </button>
+      <button mat-icon-button (click)="navigateForIg()" [disabled]="!news.igPostUrl">
+        <i class="fab fa-instagram fa-sm"></i>
+      </button>
+    </div>
+  </div>
+</div>

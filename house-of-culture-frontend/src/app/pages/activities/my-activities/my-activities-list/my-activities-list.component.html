@@ -1,0 +1,17 @@
+<div class="activities-container">
+  <div class="activity-cards-container" [style.max-height]="isScrollable ? '380px' : 'auto'"
+       [class.scrollable]="isScrollable">
+    <ng-container *ngIf="enrolledActivities && enrolledActivities.length > 0; else noActivities">
+      <div *ngFor="let activity of enrolledActivities">
+        <app-activity-card (resignActivity)="resign($event)" [activityInfo]="activity"></app-activity-card>
+      </div>
+    </ng-container>
+    <ng-template #noActivities>
+      <mat-card>
+        <mat-card-content>
+          <h4> Brak zajęć </h4>
+        </mat-card-content>
+      </mat-card>
+    </ng-template>
+  </div>
+</div>

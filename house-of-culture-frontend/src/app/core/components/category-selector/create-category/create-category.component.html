@@ -1,0 +1,17 @@
+<div class="container-content">
+  <h2 class="container-content__title">Dodaj nową kategorie</h2>
+  <form class="container-content__category-form" (ngSubmit)="createCategory()">
+    <mat-form-field class="container-content__category-form__category-input" [formGroup]="categoryForm">
+      <input matInput placeholder="Nazwa" formControlName="categoryName">
+    </mat-form-field>
+
+    <div class="container-content__category-form__button-container">
+      <button mat-raised-button (click)="cancel()">
+        Anuluj
+      </button>
+      <button mat-raised-button color="primary" type="submit">
+        Dodaj
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,28 @@
+:host {
+  .toolbar {
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    &__text {
+      display: flex;
+      font-weight: bold;
+      font-size: 22px;
+      text-decoration: none;
+      color: white;
+    }
+
+    &__spacer {
+      flex: 1 1 auto;
+    }
+
+    &__icon {
+      width: 28px;
+      margin-right: 5px;
+      filter: invert(100%);
+    }
+  }
+}

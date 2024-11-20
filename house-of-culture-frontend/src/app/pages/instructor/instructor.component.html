@@ -1,0 +1,35 @@
+<div class="header">
+  <h1>Twoje zajęcia</h1>
+  <button mat-raised-button color="primary" (click)="getCalendar()">
+    <mat-icon>save_alt</mat-icon>
+    Eksportuj
+  </button>
+</div>
+<h4>
+  Aby wysłać wiadomość do uczestników
+  lub zarządzać zajęciami, proszę
+  kliknąć na odpowiednią opcję poniżej.
+</h4>
+
+<app-activities-calendar
+  [events]="singleEvents"
+  [eventClick]="eventClicked"
+></app-activities-calendar>
+
+<h1>Lista prowadzonych zajęć</h1>
+
+<div class="activity-cards-container" [style.max-height]="isScrollable ? '350px' : 'auto'"
+     [class.scrollable]="isScrollable">
+    <ng-container *ngIf="activity && activity.length > 0; else noActivities">
+      <div *ngFor="let act of activity">
+        <app-single-activity-card [activity]="act"></app-single-activity-card>
+      </div>
+    </ng-container>
+    <ng-template #noActivities>
+      <mat-card>
+        <mat-card-content>
+          <h4> Brak zajęć </h4>
+        </mat-card-content>
+      </mat-card>
+    </ng-template>
+</div>

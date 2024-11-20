@@ -1,0 +1,44 @@
+<div class="header">
+  <h1 *ngIf="!children">Twoje zajęcia</h1>
+  <h1 *ngIf="children">Zajęcia Twoje i Twoich dzieci</h1>
+
+  <button mat-raised-button color="primary" (click)="getCalendar()">
+    <mat-icon>save_alt</mat-icon>
+    Eksportuj
+  </button>
+</div>
+
+<mat-tab-group
+  class="tab"
+  animationDuration="0ms"
+  mat-align-tabs="start"
+  backgroundColor="primary"
+  (selectedTabChange)="onTabChange($event)"
+>
+  <mat-tab label="Ty"></mat-tab>
+  <mat-tab *ngFor="let child of children" label="{{child.firstName}}"></mat-tab>
+</mat-tab-group>
+
+
+<app-activities-calendar
+  [events]="enrolledEvents"
+></app-activities-calendar>
+
+<div class="container">
+  <h1>Zajęcia</h1>
+  <div class="checkbox-container">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="navigateToPeriodicPayment()"
+    >
+      Płatność okresowa
+    </button>
+    <mat-label>Odbyte już zajęcia</mat-label>
+    <mat-checkbox color="primary" [formControl]="takeActivitiesFromPastControl"></mat-checkbox>
+  </div>
+</div>
+
+<mat-divider></mat-divider>
+
+<app-my-activities-list (eventDelete)="onEventDelete()"></app-my-activities-list>

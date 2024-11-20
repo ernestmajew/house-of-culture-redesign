@@ -1,0 +1,28 @@
+<div>
+  <div cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)" class="images-container">
+
+    <div *ngFor="let url of selectedImagesUrls; index as i">
+      <!-- Use src instead of ngSrc to enable base64 URL with image -->
+      <img
+        src="{{url}}"
+        alt="Uploaded image"
+        cdkDrag
+      >
+      <button (click)="deleteImage(i)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="file-input-container">
+      <label for="fileInput" class="plus-symbol">+</label>
+      <input
+        type="file"
+        id="fileInput"
+        multiple
+        (change)="onImageSelect($event)"
+        class="file-input"
+        accept="image/png, image/jpg, image/jpeg"
+      />
+    </div>
+  </div>
+</div>

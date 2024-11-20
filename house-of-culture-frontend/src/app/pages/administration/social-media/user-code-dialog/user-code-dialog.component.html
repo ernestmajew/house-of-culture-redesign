@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Uwierzytelnij aplikację</h1>
+<div mat-dialog-content>
+  <p>Użyj następującego kodu:</p>
+  <h3 (click)="copyUserCodeToClipboard()">{{data.code}}</h3>
+  <p>Na stronie:</p>
+  <h3><a href="{{data.verificationUri}}" target="_blank">{{data.verificationUri}}</a></h3>
+  <p>
+    Aby uwierzytelnić naszą aplikacje.
+    Po wpisaniu kodu zostanie otwarte okno, które wymaga potwierdzenia połączenia naszej aplikacji z Państwa kontem Facebook.
+    Połączenie aplikacji może zająć do 30 sekund (należy w tym czasie odświeżyć tę stronę).
+  </p>
+</div>
+<div mat-dialog-actions class="buttons">
+  <button mat-raised-button color="primary" (click)="closeDialog()">Gotowe</button>
+</div>

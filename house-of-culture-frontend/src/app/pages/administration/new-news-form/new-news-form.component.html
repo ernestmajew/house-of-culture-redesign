@@ -1,0 +1,76 @@
+<div class="container-content">
+  <app-return-button  class="container-content__button" [text]="'Powrót'"></app-return-button>
+
+  <h2 class="container-content__header">
+    Utwórz nowy post
+  </h2>
+
+  <h3 class="container-content__input">
+    Tytuł
+  </h3>
+  <div *ngIf="newsForm.get('title')?.invalid && (newsForm.get('title')?.dirty || newsForm.get('title')?.touched)" class="error-message">
+    <span *ngIf="newsForm.get('title')?.hasError('required')">Tytuł jest wymagany.</span>
+  </div>
+  <mat-form-field [formGroup]="newsForm">
+    <input matInput placeholder="Wpisz tytuł posta tutaj..." formControlName="title">
+  </mat-form-field>
+
+  <h3 class="container-content__label">
+    Treść
+  </h3>
+  <app-editor (htmlContentChange)="onHtmlContentChange($event)"
+              [placeholder]="placeholder"
+              [errorMessage]="errorMessage">
+  </app-editor>
+
+  <div class="container-content__tooltip-label">
+    <h3 class="container-content__tooltip-label__label">
+      Zdjęcia
+    </h3>
+    <mat-icon
+      matTooltip="Kolejność dodanych zdjęć ma znaczenie. Pierwsze zdjęcie jest zdjęciem głównym, następne określają kolejność wyświetlania"
+      matTooltipPosition="above"
+      class="container-content__tooltip-label__icon">help
+    </mat-icon>
+  </div>
+
+  <app-images-upload (selectImagesEvent)="onUploadImageChange($event)"></app-images-upload>
+
+  <div [formGroup]="newsForm">
+    <h3 class="container-content__label">
+      Kategorie
+    </h3>
+    <app-category-selector
+      (updateCategoriesControl)="onChosenCategoriesChange($event)">
+    </app-category-selector>
+
+    <h3 class="container-content__label">
+      Utwórz post w mediach społecznościowych
+    </h3>
+
+    <mat-slide-toggle
+      formControlName="createFbPost"
+      color="primary"
+      class="container-content__slide-toggle"
+    >
+      Facebook
+    </mat-slide-toggle>
+
+    <mat-slide-toggle
+      formControlName="createIgPost"
+      color="primary"
+      class="container-content__slide-toggle"
+    >
+      Instagram
+    </mat-slide-toggle>
+  </div>
+  <button mat-raised-button
+          color="primary"
+          class="container-content__accept-button"
+          [disabled]="apiLoading || newsForm.invalid"
+          (click)="createNewNews()"
+  >
+    <mat-spinner class="spinner" *ngIf="apiLoading"></mat-spinner>
+    <span *ngIf="!apiLoading">Utwórz</span>
+  </button>
+</div>

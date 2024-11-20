@@ -1,0 +1,40 @@
+.activity-card-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .date-range {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    font-size: 13px;
+    gap: 20px;
+
+    .single-info {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  &__icon-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: nowrap;
+    margin-right: 15px;
+    margin-left: 10px;
+  }
+}
+
+mat-card {
+  min-width: 680px;
+  margin-bottom: 5px;
+}
+
+mat-card-header {
+  font-size: large;
+  font-weight: bold;
+}

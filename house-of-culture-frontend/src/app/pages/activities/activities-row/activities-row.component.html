@@ -1,0 +1,13 @@
+<div>
+  <a
+    (click)="goToCategory(categoryId)"
+  >
+    <h2 *ngIf="title" class="title">{{title}}</h2>
+  </a>
+  <div class="content__popular">
+    <app-activity-offer-card
+      *ngFor="let activity of activities"
+      [activity]="activity"
+    ></app-activity-offer-card>
+  </div>
+</div>

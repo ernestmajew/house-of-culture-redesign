@@ -1,0 +1,65 @@
+.container-content {
+  max-width: 100%;
+  display: flex;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .image-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .date {
+    position: absolute;
+    top: 6%;
+    right: 5%;
+    background-color: rgba(0, 0, 0, 0.50);
+    color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  img {
+    width: 94%;
+    height: 12rem;
+    margin: 3% auto;
+    border-radius: 4px;
+  }
+
+  mat-card-title {
+    display: flex;
+    height: 55px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  mat-card-content {
+    font-size: 14px;
+    flex: 1;
+  }
+
+  .custom-actions {
+    justify-content: flex-end;
+  }
+
+  .small-icon-button {
+    font-size: 18px;
+  }
+}
+
+a mat-card {
+  height: 450px;
+}
+
+mat-card:hover {
+  transform: scale(1.03);
+  transition: transform 0.15s linear;
+}

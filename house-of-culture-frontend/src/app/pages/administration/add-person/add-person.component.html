@@ -1,0 +1,19 @@
+<app-return-button [text]="'Powrót'"></app-return-button>
+<div>
+  <div>
+    <h1>Dodaj użytkownika</h1>
+  </div>
+  <app-create-user-form
+    [userForm]="userForm"
+    [type]="'add-person'"
+  >
+  </app-create-user-form>
+  <div class="register_action">
+    <button
+      (click)="addUser()"
+      [disabled]="userForm.invalid"
+      class="register_action__button"
+      mat-raised-button
+      color="primary">Dodaj</button>
+  </div>
+</div>

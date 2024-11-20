@@ -1,0 +1,58 @@
+<mat-dialog-content class="mat-typography content">
+  <h2
+    class="header"
+  >
+    Eksportuj kalendarz do pliku
+  </h2>
+  <form
+    [formGroup]="exportCalendarForm"
+    class="content"
+  >
+    <mat-form-field>
+      <mat-label>Wybierz zakres dat</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input formControlName="startDate" matStartDate placeholder="Data początkowa">
+        <input formControlName="endDate" matEndDate placeholder="Data końcowa">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>
+        Czyj kalendarz wyeksportować?
+      </mat-label>
+      <mat-select formControlName="userId">
+        <mat-option [value]="-1">Twój kalendarz</mat-option>
+        <mat-option
+          *ngFor="let child of data.children"
+          [value]="child.id"
+        >{{child | fullname}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions
+  class="action-buttons"
+>
+  <button
+    mat-button
+    color="primary"
+    mat-dialog-close
+  >
+    Anuluj
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    cdkFocusInitial
+    [disabled]="exportCalendarForm.invalid"
+    (click)="downloadCalendar()"
+  >
+    <mat-icon>
+      save_alt
+    </mat-icon>
+    Eksportuj kalendarz
+  </button>
+</mat-dialog-actions>
+

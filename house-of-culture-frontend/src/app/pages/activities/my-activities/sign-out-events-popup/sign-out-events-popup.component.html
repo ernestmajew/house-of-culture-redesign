@@ -1,0 +1,25 @@
+<div>
+  <h4>Anuluj zapis na zajęcia</h4>
+  <form [formGroup]="signOutForm">
+    <mat-form-field>
+      <mat-label>Liczba zapisów od końca do anulowania</mat-label>
+      <input type="number" min="1" max="{{data.numberOfEnrolledSingleEvents}}" matInput
+             formControlName="numberOfClasses" [readonly]="checkboxValue"
+             matTooltip="Wybierz liczbe N ostatnich zapisów na spotkania które chciałbyś anulować.">
+      <mat-error *ngIf="signOutForm.get('numberOfClasses')?.errors">
+        {{errorInfo}}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="checkbox">
+      <mat-label>Anuluj wszystkie zapisy</mat-label>
+      <mat-checkbox formControlName="cancelAllClasses" color="primary"></mat-checkbox>
+    </div>
+  </form>
+
+  <div class="btn">
+    <button mat-raised-button color="primary" (click)="confirmCancellation()"
+            [disabled]="signOutForm.get('numberOfClasses')!.invalid">Potwierdź</button>
+    <button mat-raised-button (click)="cancel()">Anuluj</button>
+  </div>
+</div>

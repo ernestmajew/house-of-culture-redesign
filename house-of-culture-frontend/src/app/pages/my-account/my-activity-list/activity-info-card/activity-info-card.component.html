@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-content class="activity-card-content">
+    <div class="activity-card-content__info">
+      <div class="date-range"><b>{{activityInfo.startDate}} - {{activityInfo.endDate}}</b></div>
+      <div class="info-text">Nazwa: <b>{{activityInfo.activity.title }}</b></div>
+      <div class="info-text">Prowadzący: <b>{{activityInfo.activity.instructor_name }}</b></div>
+      <div class="info-text">Uczestnik: <b>{{activityInfo.user | fullname}}</b></div>
+    </div>
+    <div class="activity-card-content__icon-buttons">
+      <button mat-icon-button (click)="activityDetail()">
+        <mat-icon>dehaze</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,46 @@
+<mat-card>
+  <mat-card-content class="activity-card-content">
+    <div class="activity-card-content__info">
+      <div class="activity-card-content__info__text">
+        <div class="info-text"><b>{{activityInfo.activity.title }}</b></div>
+      <div class="info-text">Prowadzący: <b>{{activityInfo.activity.instructor_name }}</b></div>
+      <div class="info-text">Uczestnik: <b>{{activityInfo.user | fullname}}</b></div>
+        <div class="date-range">
+          <div class="single-info">
+            <mat-icon>
+              play_circle_outline
+            </mat-icon>
+            <mat-label>
+              Od: <b>{{activityInfo.startDate}}</b>
+            </mat-label>
+          </div>
+          <div class="single-info">
+            <mat-icon>
+              flag
+            </mat-icon>
+            <mat-label>
+              Do: <b>{{activityInfo.endDate}}</b>
+            </mat-label>
+          </div>
+        </div>
+    </div>
+      <div class="activity-card-content__info__cost">
+        <b>{{costOfActivityString}}</b>
+        <b [ngClass]="{'red-text': debtOfUser !== 'Brak zaległości'}">{{debtOfUser}}</b>
+      </div>
+    </div>
+    <div class="activity-card-content__icon-buttons">
+      <button *ngIf="activityInfo.activity.cost" mat-icon-button (click)="navigateToPayments()">
+        <mat-icon>attach_money</mat-icon>
+      </button>
+      <div *ngIf="activityInfo.numberOfEnrolledSingleEvents !== 0">
+        <button mat-icon-button (click)="resign()" matTooltip="Wypisz się z zajęć">
+          <mat-icon>exit_to_app</mat-icon>
+        </button>
+      </div>
+      <button mat-icon-button (click)="activityDetail()" matTooltip="Szczegóły zajęć">
+        <mat-icon>dehaze</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

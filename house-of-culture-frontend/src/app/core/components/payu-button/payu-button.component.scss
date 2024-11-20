@@ -1,0 +1,17 @@
+.button {
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__logo {
+      width: 30px;
+    }
+
+    &__spacer {
+      flex: 1 1 auto;
+    }
+  }
+}
+

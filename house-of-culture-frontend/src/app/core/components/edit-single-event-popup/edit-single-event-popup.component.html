@@ -1,0 +1,57 @@
+<div class="content-container">
+  <h3>Edytuj pojedyńcze zajęcia</h3>
+  <form (ngSubmit)="onSubmit()" [formGroup]="editForm">
+    <mat-form-field class="form-field">
+      <mat-label>Data zajęć</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="startDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-hint>DD.MM.YYYY</mat-hint>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Godzina rozpoczęcia</mat-label>
+      <input matInput
+             formControlName="startTime"
+             [ngxTimepicker]="startTime"
+             [format]="24">
+      <ngx-material-timepicker #startTime
+                               [cancelBtnTmpl]="cancelBtn"
+                               [confirmBtnTmpl]="confirmBtn">
+      </ngx-material-timepicker>
+      <ng-template #cancelBtn>
+        <button mat-raised-button style="background-color: #ccc; color: #333; margin-right: 10px">Anuluj</button>
+      </ng-template>
+      <ng-template #confirmBtn>
+        <button mat-raised-button color="primary" style="margin-left: 10px; margin-right: 30px;">Zatwierdź</button>
+      </ng-template>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Godzina zakończenia</mat-label>
+      <input matInput
+             formControlName="endTime"
+             [ngxTimepicker]="endTime"
+             [format]="24">
+      <ngx-material-timepicker #endTime
+                               [cancelBtnTmpl]="cancelBtn"
+                               [confirmBtnTmpl]="confirmBtn">
+      </ngx-material-timepicker>
+      <ng-template #cancelBtn>
+        <button mat-raised-button style="background-color: #ccc; color: #333; margin-right: 10px">Anuluj</button>
+      </ng-template>
+      <ng-template #confirmBtn>
+        <button mat-raised-button color="primary" style="margin-left: 10px; margin-right: 30px;">Zatwierdź</button>
+      </ng-template>
+    </mat-form-field>
+
+    <div *ngIf="data.isEdit">
+      <mat-checkbox formControlName="isCanceled" color="primary">Anuluj zajęcia</mat-checkbox>
+    </div>
+  </form>
+
+  <div class="dialog-actions">
+    <button mat-raised-button class="cancel-button" (click)="onCancel()">Anuluj</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Zapisz</button>
+  </div>
+</div>

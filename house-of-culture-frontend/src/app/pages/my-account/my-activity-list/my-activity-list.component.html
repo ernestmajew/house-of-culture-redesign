@@ -1,0 +1,24 @@
+<div class="activities-container">
+  <div class="header">
+    <h3>Twoje zajęcia</h3>
+    <button mat-raised-button color="primary" (click)="navigateToPeriodicPayment()">
+      Płatność okresowa
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="activity-cards-container" [style.max-height]="isScrollable ? '370px' : 'auto'" [class.scrollable]="isScrollable">
+    <ng-container *ngIf="activities && activities.length > 0; else noActivities">
+      <div *ngFor="let activity of activities">
+        <app-activity-info-card [activityInfo]="activity"></app-activity-info-card>
+      </div>
+    </ng-container>
+    <ng-template #noActivities>
+      <mat-card>
+        <mat-card-content>
+          <h4> Brak zajęć </h4>
+        </mat-card-content>
+      </mat-card>
+    </ng-template>
+  </div>
+</div>
+

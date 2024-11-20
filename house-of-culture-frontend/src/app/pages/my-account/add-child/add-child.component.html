@@ -1,0 +1,19 @@
+<app-return-button [text]="'Powrót'"></app-return-button>
+<div>
+  <div>
+    <h1>Dodaj dziecko</h1>
+  </div>
+  <app-create-user-form
+    [userForm]="childForm"
+    [type]="'add-child'"
+  >
+  </app-create-user-form>
+  <div class="register_action">
+    <button
+      (click)="addChild()"
+      [disabled]="childForm.invalid"
+      class="register_action__button"
+      mat-raised-button
+      color="primary">Dodaj</button>
+  </div>
+</div>

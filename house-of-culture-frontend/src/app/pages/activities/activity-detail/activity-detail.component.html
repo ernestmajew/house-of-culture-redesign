@@ -1,0 +1,95 @@
+<app-return-button [text]="'Powrót'"></app-return-button>
+
+
+<div class="main-container flex-container center">
+  <div class="top-container">
+    <mat-chip-listbox>
+      <mat-chip *ngFor="let category of activity?.categories">{{ category.name }}</mat-chip>
+    </mat-chip-listbox>
+
+    <div class="top-container__buttons">
+      <button
+        *appAccess="UserRoleTs.EMPLOYEE"
+        mat-icon-button
+        color="warn"
+        (click)="deleteActivity()"
+        matTooltip="Usuń zajęcia">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <button
+        *appAccess="UserRoleTs.EMPLOYEE"
+        mat-icon-button
+        color="primary"
+        (click)="editActivity()"
+        matTooltip="Edytuj szczegóły zajęć">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button
+        *appAccess="UserRoleTs.EMPLOYEE"
+        mat-icon-button
+        color="primary"
+        (click)="enrolledUserView()"
+        matTooltip="Sprawdź liste osób uczestniczących w zajęciach">
+        <mat-icon>supervisor_account</mat-icon>
+      </button>
+    </div>
+  </div>
+  <gallery gallerize [counter]="false" [items]="images" class="gallery center"></gallery>
+  <div class="description-container">
+    <div>
+      <h1>{{activity?.title}}</h1>
+      <div class="icon-with-text">
+        <mat-icon>person</mat-icon>
+        <p>{{activity?.instructor_name}}</p>
+      </div>
+    </div>
+    <span [innerHTML]="sanitizeDescription()"></span>
+  </div>
+
+  <div class="parameters-container">
+    <div class="icon-with-text">
+      <mat-icon>child_care</mat-icon>
+      <p>{{ activity?.minimumAge | activityAge:activity?.maximumAge }}</p>
+    </div>
+
+    <div class="icon-with-text">
+      <mat-icon>attach_money</mat-icon>
+      <p>{{activity?.cost | activityCost}}</p>
+    </div>
+
+    <div class="icon-with-text">
+      <mat-icon>event_seat</mat-icon>
+      <p>
+        {{activity?.availablePlaces |
+          activityAvailablePlaces:activity?.maxPlaces:activity?.closestAvailableSingleEventDate}}
+      </p>
+    </div>
+
+    <button
+      mat-raised-button color="accent"
+      (click)="enroll()"
+      *appAccess="UserRoleTs.CLIENT"
+    >
+      Zapisz się
+    </button>
+  </div>
+
+  <mat-expansion-panel class="schedule-container">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="schedule-header">
+        Harmonogram zajęć
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <p
+      *ngFor="let singleEvent of activity?.occurences; index as i"
+      [ngClass]="{
+        'occurrence-passed': hasOccurrencePassed(singleEvent),
+        'occurrence-cancelled': singleEvent.isCancelled
+      }"
+    >
+      {{singleEvent | activityOccurrence:i}}
+    </p>
+  </mat-expansion-panel>
+</div>

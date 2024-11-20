@@ -1,0 +1,76 @@
+.categories{
+  display: grid;
+  grid-template-areas:
+    'cat1 cat2 cat3'
+    'cat1 cat2 cat4';
+  gap: 10px;
+  margin-top: 2rem;
+  min-height: 22vh;
+
+  &__item{
+    border-radius: 5px;
+    background: rgb(236,236,236);
+    background: linear-gradient(167deg, rgba(255,189,104, 0.85) 35%, rgba(255,189,104,0.65) 5%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    transition: all 1.2s ease;
+
+    &__title{
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: rgba(65, 64, 64, 0.99);
+      text-align: center;
+      margin: 0;
+    }
+    &:hover{
+      background: linear-gradient(167deg, rgba(255,189,104,1) 55%, rgba(255,189,104,0.85) 0%);
+      padding-right: 1rem;
+      padding-left: 1rem;
+
+      .subtitle{
+        display: block;
+      }
+    }
+  }
+}
+
+.subtitle{
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(65, 64, 64, 0.80);
+  text-align: center;
+  display: none;
+}
+
+.category-1{
+  grid-area: cat1;
+}
+
+.category-2{
+  grid-area: cat2;
+}
+
+.category-3{
+  grid-area: cat3;
+}
+
+.category-4{
+  grid-area: cat4;
+}
+
+.spinner-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rest-activities{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}

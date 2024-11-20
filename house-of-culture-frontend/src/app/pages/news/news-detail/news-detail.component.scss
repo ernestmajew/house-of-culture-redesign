@@ -1,0 +1,68 @@
+@import "themes";
+
+.container-content {
+  width: 94%;
+  margin: 0 auto;
+
+  &__employee-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2rem;
+    gap: 1rem;
+  }
+
+  &__main {
+    width: 70%;
+    margin: 1rem auto;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+    &__info {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 13px;
+      margin-bottom: 1rem;
+      align-items: center;
+
+      ::ng-deep .mat-mdc-standard-chip:not(.mdc-evolution-chip--disabled) .mdc-evolution-chip__text-label {
+        color: rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    &__title {
+      margin-top: 2rem;
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    &__description {
+      margin-top: 2rem;
+      font-size: 17px;
+    }
+
+    &__action-buttons {
+      display: flex;
+      width: 100%;
+      justify-content: flex-end;
+      margin: 1rem auto;
+      gap: 1rem;
+    }
+  }
+}
+
+p {
+  font-size: 15px;
+}
+
+.author-info {
+  margin: 0;
+}
+
+.gallery {
+  margin-top: 10px;
+  background-color: transparent !important;
+  width: 70%;
+}

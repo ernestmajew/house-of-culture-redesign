@@ -1,0 +1,46 @@
+.pagination-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+button {
+  background-color: #bd8618;
+  color: #fff;
+  border: none;
+  margin: 4px;
+  cursor: pointer;
+}
+
+button, .mat-button {
+  color: #fff;
+}
+
+.toggle {
+  color: #eee;
+}
+
+.toggle:disabled {
+  color: black;
+}
+
+button:disabled {
+  background-color: #eee;
+  cursor: not-allowed;
+}
+
+.mat-icon-button {
+  font-size: 15px;
+}
+
+.mat-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+button, .mat-icon-button {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,19 @@
+<div class="container-content">
+
+  <div class="form-field-and-button" [formGroup]="groupForm">
+    <p-multiSelect class="auto-grow"
+                   [options]="categoryList"
+                   formControlName="selectedCategories"
+                   optionLabel="name"
+                   optionValue="id"
+                   display="chip"
+                   placeholder="Wybierz kategorie"
+                   (onChange)="selectedCategoriesChange()"
+                   [style]="{'width':'50%', 'background': 'transparent', 'height': pixelHeightSize, 'align-items': 'center'}"
+                   [panelStyle]="{'width':'100%'}">
+    </p-multiSelect>
+    <button mat-raised-button color="primary" (click)="openCreateCategoryDialog()">
+      Dodaj nową kategorię
+    </button>
+  </div>
+</div>

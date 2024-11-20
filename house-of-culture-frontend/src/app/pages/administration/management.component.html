@@ -1,0 +1,49 @@
+<div>
+  <div>
+    <h1>Panel domu kultury</h1>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="container">
+    <mat-card>
+      <mat-card-header><h3>Utwórz</h3></mat-card-header>
+      <mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-list>
+          <ng-container *ngFor="let func of createAdminPanelFunctions">
+            <ng-container *appAccess="func.visibleOnlyToAdmin? UserRoleTs.ADMIN: UserRoleTs.INSTRUCTOR">
+              <mat-list-item
+                class="list-item"
+                (click)="goTo(func.route)"
+              >
+                <mat-icon matListItemIcon>{{func.icon}}</mat-icon>
+                <div matListItemTitle>{{func.name}}</div>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+            </ng-container>
+          </ng-container>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+    <!--Change if new functions will be added-->
+    <mat-card *appAccess="UserRoleTs.ADMIN">
+      <mat-card-header><h3>Zarządzaj</h3></mat-card-header>
+      <mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-list>
+          <ng-container *ngFor="let func of updateAdminPanelFunctions">
+            <ng-container *appAccess="func.visibleOnlyToAdmin? UserRoleTs.ADMIN: UserRoleTs.INSTRUCTOR">
+              <mat-list-item
+                class="list-item"
+                (click)="goTo(func.route)"
+              >
+                <mat-icon matListItemIcon>{{func.icon}}</mat-icon>
+                <div matListItemTitle>{{func.name}}</div>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+            </ng-container>
+          </ng-container>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

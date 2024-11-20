@@ -1,0 +1,36 @@
+<app-calendar-header
+  [(view)]="view"
+  [viewDate]="viewDate"
+  [hideArrows]="hideArrows"
+  [hideViewButtons]="hideViewButtons"
+  (viewDateChange)="onViewDateChange($event)"
+>
+</app-calendar-header>
+
+<div [ngSwitch]="view" class="scroll-container" #scrollContainer>
+  <mwl-calendar-month-view
+    *ngSwitchCase="'month'"
+    [viewDate]="viewDate"
+    [events]="events"
+    (eventClicked)="eventClick($event)"
+  >
+  </mwl-calendar-month-view>
+  <mwl-calendar-week-view
+    *ngSwitchCase="'week'"
+    [viewDate]="viewDate"
+    [events]="events"
+    [dayStartHour]="dayStartHour"
+    [dayEndHour]="dayEndHour"
+    (eventClicked)="eventClick($event)"
+  >
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+    *ngSwitchCase="'day'"
+    [viewDate]="viewDate"
+    [events]="events"
+    [dayStartHour]="dayStartHour"
+    [dayEndHour]="dayEndHour"
+    (eventClicked)="eventClick($event)"
+  >
+  </mwl-calendar-day-view>
+</div>

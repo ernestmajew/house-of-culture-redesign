@@ -1,0 +1,61 @@
+<div >
+  <h3 mat-dialog-title>
+    Edytuj swoje dane
+  </h3>
+  <form class="example-form" [formGroup]="userForm" mat-dialog-content>
+    <div class="field_row">
+      <mat-form-field appearance="fill" >
+        <mat-label>Imię</mat-label>
+        <input matInput formControlName="firstName">
+      </mat-form-field>
+    </div>
+    <div class="field_row">
+      <mat-form-field appearance="fill">
+        <mat-label>Nazwisko</mat-label>
+        <input matInput formControlName="lastName">
+      </mat-form-field>
+    </div>
+    <div class="field_row">
+      <mat-form-field appearance="fill" >
+        <mat-label>Data urodzenia</mat-label>
+        <input matInput
+               [matDatepickerFilter]="dateFilter"
+               [matDatepicker]="datepicker"
+               formControlName="birthdate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker #datepicker>
+        </mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="field_row">
+      <mat-form-field appearance="fill" >
+        <mat-label>Numer telefonu</mat-label>
+        <input matInput formControlName="phoneNumber">
+      </mat-form-field>
+    </div>
+    <div class="field_row">
+        <mat-label>Zapis do Newslettera</mat-label>
+        <span></span>
+        <mat-slide-toggle formControlName="getsNewsletter"></mat-slide-toggle>
+    </div>
+
+  </form>
+
+  <div mat-dialog-actions [align]="'end'" class="action_buttons">
+    <button
+      class="action_buttons__button"
+      (click)="onNoDialog()"
+      mat-raised-button
+    >Anuluj</button>
+    <button
+      class="action_buttons__button"
+      (click)="saveData()"
+      [disabled]="userForm.invalid"
+      mat-raised-button
+      color="primary"
+      cdkFocusInitial
+      >Zapisz</button>
+  </div>
+
+</div>

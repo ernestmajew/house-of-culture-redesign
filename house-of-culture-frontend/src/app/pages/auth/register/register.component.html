@@ -1,0 +1,19 @@
+<div>
+  <div >
+    <h1>Rejestracja</h1>
+  </div>
+  <app-user-form
+    [userForm] = "registerForm"
+  >
+  </app-user-form>
+
+  <div class="register_action">
+    <button
+      (click)="register()"
+      [disabled]="registerForm.invalid"
+      class="register_action__button"
+      mat-raised-button
+      color="primary">Zarejestruj</button>
+  </div>
+
+</div>

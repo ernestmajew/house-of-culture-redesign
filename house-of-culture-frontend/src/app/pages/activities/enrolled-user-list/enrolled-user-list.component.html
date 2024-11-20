@@ -1,0 +1,36 @@
+<app-return-button [text]="'Powrót'"></app-return-button>
+
+<div class="container">
+  <h1>Lista uczestników</h1>
+  <div class="checkbox-container">
+    <mat-label>Uczestnicy zapisani na odbyte już zajęcia</mat-label>
+    <mat-checkbox color="primary" [formControl]="takeUserEnrolmentFromPastControl"></mat-checkbox>
+  </div>
+</div>
+
+<div>
+  <ng-container *ngIf="enrolledUser && enrolledUser.length > 0; else noEnrollment">
+    <div *ngFor="let user of enrolledUser">
+      <mat-card>
+        <mat-card-content>
+          <div class="text">{{user.user | fullname}}</div>
+          <div class="cost" *ngIf="!isInstructor" [ngClass]="{'red-text': getUserDebt(user) !== 'Brak zaległości'}">
+            <p>{{ getUserDebt(user) }}</p>
+          </div>
+          <div *ngIf="!takeUserEnrolmentFromPastControl.value && !isInstructor" class="icon-buttons">
+            <button mat-icon-button (click)="deleteUserFromActivity(user)" matTooltip="Wypisz użytkownika z zajęć">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-container>
+  <ng-template #noEnrollment>
+    <mat-card>
+      <mat-card-content>
+        <h4> Brak zapisanych osób </h4>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
+</div>

@@ -1,0 +1,42 @@
+div {
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
+
+  h4 {
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    mat-form-field {
+      width: 100%;
+
+      input {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  button {
+    width: 100px;
+  }
+}
+
+.checkbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}

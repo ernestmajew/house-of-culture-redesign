@@ -1,0 +1,72 @@
+<form class="example-form" [formGroup]="userForm">
+
+  <div class="field_row">
+    <mat-form-field appearance="fill" >
+      <mat-label>Imię</mat-label>
+      <input matInput autocomplete="given-name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Nazwisko</mat-label>
+      <input matInput autocomplete="family-name" formControlName="lastname">
+    </mat-form-field>
+  </div>
+  <div class="field_row">
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput autocomplete="email" formControlName="email">
+      <mat-error *ngIf="userForm.controls['email'].hasError('email')">
+        Niepoprawny adres email
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="field_row">
+    <mat-form-field appearance="fill" >
+      <mat-label>Data urodzenia</mat-label>
+      <input matInput autocomplete="bday" [matDatepickerFilter]="dateFilter" [matDatepicker]="datepicker" formControlName="dateOfBirth">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker>
+      </mat-datepicker>
+      <mat-error *ngIf="userForm.controls['dateOfBirth'].hasError('notOldEnough')">
+        Użytkownik musi być pełnoletni
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="field_row">
+    <mat-form-field appearance="fill">
+      <mat-label>Hasło</mat-label>
+      <input matInput autocomplete="new-password" [type]="hide ? 'password' : 'text'" formControlName="password">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="userForm.controls['password'].hasError('requiresDigit')">
+        Hasło powinno zawierać przynajmniej jedną cyfrę
+      </mat-error>
+      <mat-error *ngIf="userForm.controls['password'].hasError('requiresUppercase')">
+        Hasło powinno zawierać dużą literę
+      </mat-error>
+      <mat-error *ngIf="userForm.controls['password'].hasError('requiresLowercase')">
+        Hasło powinno zawierać małą literę
+      </mat-error>
+      <mat-error *ngIf="userForm.controls['password'].hasError('requiresSpecialChars')">
+        Hasło powinno zawierać znak specjalny
+      </mat-error>
+      <mat-error *ngIf="userForm.controls['password'].hasError('minlength')">
+        Hasło jest za krótkie
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Powtórz hasło</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="userForm.controls['confirmPassword'].errors?.['mismatch']">
+        Hasła się różnią
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="field_row">
+    <mat-form-field appearance="fill" >
+      <mat-label>Numer Telefonu</mat-label>
+      <input matInput autocomplete="tel-national" formControlName="phoneNumber">
+    </mat-form-field>
+  </div>
+
+</form>

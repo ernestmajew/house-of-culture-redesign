@@ -1,0 +1,76 @@
+@import "themes";
+@import '~@fortawesome/fontawesome-free/css/all.css';
+@import "~@angular/cdk/overlay-prebuilt.css";
+@import "primeng/resources/themes/fluent-light/theme.css";
+@import "primeng/resources/primeng.css";
+
+html,
+body {
+  height: 100%;
+  min-width: fit-content;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.NgxEditor__MenuBar {
+  background-color: transparent !important;
+}
+
+.error .NgxEditor {
+  background: transparent !important;
+  border: 1px solid rgba(255, 0, 0, 0.8) !important;
+}
+
+.NgxEditor {
+  background: transparent !important;
+  border:  1px solid rgba(0, 0, 0, 0.35) !important;
+}
+
+.NgxEditor__Placeholder {
+  margin: 10px 5px !important;
+}
+
+ngx-material-timepicker-content {
+  --body-background-color: #fff;
+  --primary-font-family: 'Roboto', sans-serif;
+  --button-color: #bd8618 !important;
+  --dial-active-color: #fff;
+  --dial-inactive-color: rgba(255, 255, 255, .5);
+  --dial-background-color: #bd8618 !important;
+  --dial-editable-active-color: #bd8618 !important;
+  --dial-editable-background-color: #fff;
+  --clock-face-time-active-color: #fff;
+  --clock-face-time-inactive-color: #6c6c6c;
+  --clock-face-inner-time-inactive-color: #929292;
+  --clock-face-time-disabled-color: #c5c5c5;
+  --clock-face-background-color: #f0f0f0;
+  --clock-hand-color: #bd8618 !important;
+}
+
+.timepicker-overlay {
+  z-index: 1100 !important;
+}
+
+.timepicker-backdrop-overlay {
+  z-index: 1100 !important;
+}
+
+.mat-mdc-form-field-hint-wrapper {
+  padding-left: 0 !important;
+}
+
+// https://github.com/angular/components/issues/20344#issuecomment-1445476134
+.mdc-dialog__surface {
+  overflow-y: hidden !important;
+}
+
+// override nggallery background color
+gallery {
+  background-color: transparent !important;
+}
+lightbox {
+  box-shadow: none !important;
+}

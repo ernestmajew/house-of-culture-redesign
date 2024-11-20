@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content class="content">
+  <p *ngFor="let elem of data.content"> {{elem}} </p>
+</div>
+<div mat-dialog-actions class="buttons">
+  <button mat-stroked-button color="primary" (click)="cancelPayment()">Anuluj</button>
+  <app-payu-button (click)="confirmPayment()"/>
+</div>

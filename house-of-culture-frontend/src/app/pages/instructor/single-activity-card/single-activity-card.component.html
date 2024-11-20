@@ -1,0 +1,36 @@
+<mat-card>
+  <mat-card-header>
+    {{activity.title}}
+  </mat-card-header>
+  <mat-card-content class="activity-card-content">
+    <div class="date-range">
+      <div class="single-info">
+        <mat-icon>
+          play_circle_outline
+        </mat-icon>
+        <mat-label>
+          Od: <b>{{activity.startDate}}</b>
+        </mat-label>
+      </div>
+      <div class="single-info">
+        <mat-icon>
+          flag
+        </mat-icon>
+        <mat-label>
+          Do: <b>{{activity.endDate}}</b>
+        </mat-label>
+      </div>
+    </div>
+    <div class="activity-card-content__icon-buttons">
+      <button mat-icon-button (click)="activityDetail()" matTooltip="Sprawdź szczegóły zajęć">
+        <mat-icon>dehaze</mat-icon>
+      </button>
+      <button
+              mat-icon-button
+              (click)="enrolledUserView()"
+              matTooltip="Sprawdź liste osób uczestniczących w zajęciach">
+        <mat-icon>supervisor_account</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

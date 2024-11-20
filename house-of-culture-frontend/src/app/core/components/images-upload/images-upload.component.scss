@@ -1,0 +1,97 @@
+@use '@angular/material' as mat;
+@import 'themes';
+
+$text-color: #ccc;
+
+.images-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  width: 80%;
+
+  div {
+    position: relative;
+
+    width: 10%;
+    min-width: 100px;
+    max-width: 200px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    aspect-ratio: 1 / 1;
+
+    border: 2px solid $text-color;
+    border-radius: 10px;
+    background-color: $text-color;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      position: absolute;
+      z-index: 100;
+      top: 0;
+      right: 0;
+      transform: translate(35%, -35%);
+      background-color: #ea4747;
+      cursor: pointer;
+      color: $text-color;
+      outline: none;
+      padding: 1px;
+      border-radius: 50%;
+      border: none;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      mat-icon {
+        transform: scale(0.8);
+      }
+    }
+
+    img {
+      // width/height 100% cause increase of parent height idk why so use this dimensions
+      width: 99.9%;
+      height: 99.9%;
+      border-radius: 9px;
+    }
+  }
+
+  div:last-child {
+    background-color: transparent;
+  }
+}
+
+.file-input-container {
+  position: relative;
+  display: inline-block;
+
+  width: 19%;
+  min-width: 100px;
+  max-width: 200px;
+  aspect-ratio: 1 / 1;
+
+  border: 1px solid $text-color;
+  border-radius: 5px;
+  cursor: pointer;
+
+  .file-input {
+    display: none;
+  }
+
+  .plus-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    text-align: center;
+    font-size: 350%;
+    color: $text-color;
+    cursor: pointer;
+  }
+}
+

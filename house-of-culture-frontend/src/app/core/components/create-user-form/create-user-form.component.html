@@ -1,0 +1,45 @@
+<form class="example-form" [formGroup]="userForm">
+
+  <div class="field_row">
+    <mat-form-field appearance="fill" >
+      <mat-label>Imię</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Nazwisko</mat-label>
+      <input matInput formControlName="lastname">
+    </mat-form-field>
+  </div>
+  <div class="field_row">
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="userForm.controls['email'].hasError('email')">
+        Niepoprawny adres email
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="field_row">
+    <mat-form-field appearance="fill" >
+      <mat-label>Data urodzenia</mat-label>
+      <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="datepicker" formControlName="dateOfBirth">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker>
+      </mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="field_row">
+    <mat-form-field appearance="fill" >
+      <mat-label>Numer Telefonu</mat-label>
+      <input matInput formControlName="phoneNumber">
+    </mat-form-field>
+    <mat-form-field appearance="fill" *ngIf="type == 'add-person'">
+      <mat-label>Rola</mat-label>
+      <mat-select formControlName="role">
+        <mat-option *ngFor="let role of roles" [value]="role">{{role}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</form>

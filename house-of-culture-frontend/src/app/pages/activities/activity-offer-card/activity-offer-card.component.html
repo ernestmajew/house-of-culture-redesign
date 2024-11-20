@@ -1,0 +1,24 @@
+<a (click)="navigateForMore()">
+  <mat-card class="container-content">
+    <div class="image-wrapper">
+      <img #img mat-card-image src="{{activityMainPicture}}" alt="{{activity.title}}" (error)="img.src = 'assets/noImage.jpg'">
+    </div>
+    <mat-card-header class="container-content__header">
+      <mat-card-title>{{ activity.title }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="container-content__info__item">
+        <mat-icon>event</mat-icon>
+         <p class="container-content__info__item__text">{{ activity.startDate | activityDate:activity.endDate }}</p>
+      </div>
+      <div class="container-content__info__item">
+        <mat-icon>person</mat-icon>
+         <p class="container-content__info__item__text">{{ activity.instructor_name }}</p>
+      </div>
+      <div class="container-content__info__item">
+        <mat-icon>person_pin</mat-icon>
+        <p class="container-content__info__item__text"> {{ activity.minimumAge | activityAge:activity.maximumAge }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</a>

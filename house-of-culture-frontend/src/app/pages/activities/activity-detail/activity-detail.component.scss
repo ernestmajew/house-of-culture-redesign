@@ -1,0 +1,104 @@
+@import "themes";
+
+.gallery {
+  margin-top: 10px;
+  background-color: transparent !important;
+  width: 80%;
+}
+
+.container {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.description-container {
+  margin-top: 10px;
+  & > * {
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  & > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.parameters-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  flex-wrap: wrap;
+
+  & > .icon-with-text {
+    margin-right: 10px;
+  }
+
+  & > button {
+    margin-left: auto;
+  }
+}
+
+.top-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  &__buttons {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
+.icon-with-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+
+  padding: 8px 15px;
+  width: fit-content;
+  min-width: 130px;
+
+  border-radius: 30px;
+  border-color: $primary-color;
+  border-style: solid;
+  border-width: 2px;
+
+  & > mat-icon {
+    margin-right: 5px;
+  }
+
+  & > p {
+    width: max-content;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.schedule-container {
+  background-color: transparent;
+  margin-top: 15px;
+}
+
+.schedule-header {
+  font-weight: bold;
+}
+
+.occurrence-passed {
+  text-decoration: line-through;
+}
+
+.occurrence-cancelled {
+  text-decoration: line-through;
+  color: darkred;
+}

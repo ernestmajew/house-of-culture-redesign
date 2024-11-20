@@ -1,0 +1,75 @@
+.container-content {
+  width: 94%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  &__button {
+    align-self: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  &__header {
+    margin-bottom: 2rem;
+  }
+
+  &__input {
+    margin-top: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  &__label {
+    margin-bottom: 0.1rem;
+  }
+
+  &__tooltip-label {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+
+    &__label {
+      margin-bottom: 0.1rem;
+    }
+
+    &__icon {
+      color: rgba(0, 0, 0, 0.35);
+      font-size: 18px;
+      padding-top:8px;
+    }
+  }
+
+  &__slide-toggle {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+
+  &__accept-button {
+    display: flex;
+    width: 25%;
+    height: 3rem;
+    margin: 2rem auto;
+  }
+}
+
+app-editor {
+  margin-bottom: 2rem;
+}
+
+app-images-upload {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  color: #ff0000;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.spinner {
+  height: 2rem !important;
+}

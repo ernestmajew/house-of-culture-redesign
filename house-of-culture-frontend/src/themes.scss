@@ -1,0 +1,107 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$beige-palette: (
+  50: #f7f7e4,
+  100: #ecebbd,
+  200: #dfdd92,
+  300: #d3d069,
+  400: #e5e157,
+  500: #ccc94c,
+  600: #c4b02b,
+  700: #c19b22,
+  800: #bd8618,
+  900: #b56305,
+  A100: #c4b02b,
+  A200: #ffab40,
+  A400: #c19b22,
+  A700: #bd8618,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: rgba(black, 0.87),
+    700: rgba(black, 0.87),
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: black,
+  )
+);
+
+$sea-green-palette: (
+  50: #e0f2f3,
+  100: #b0dfe0,
+  200: #7ccbcd,
+  300: #43b6b7,
+  400: #00a6a6,
+  500: #009694,
+  600: #008986,
+  700: #007975,
+  800: #006965,
+  900: #004d47,
+  A100: #e0f2f3,
+  A200: #7ccbcd,
+  A400: #00a6a6,
+  A700: #006965,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: rgba(black, 0.87),
+    700: rgba(black, 0.87),
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: black,
+  )
+);
+
+$primary-color: #bd8618;
+
+$app-primary: mat.define-palette($beige-palette, 800, 100, 900);
+$app-accent: mat.define-palette($sea-green-palette, 500, 300, 700);
+$app-warn: mat.define-palette(mat.$red-palette);
+$app-success: mat.define-palette(mat.$green-palette, 800, 300, 900);
+
+$light-theme: mat.define-light-theme(
+    (
+      color: (
+        primary: $app-primary,
+        accent: $app-accent,
+        warn: $app-warn
+      ),
+      typography: mat.define-typography-config(),
+    )
+);
+
+$dark-theme: mat.define-dark-theme(
+    (
+      color: (
+        primary: $app-primary,
+        accent: $app-accent,
+        warn: $app-warn
+      )
+    )
+);
+
+.dark-mode {
+  @include mat.all-component-colors($dark-theme);
+}
+
+@include mat.all-component-themes($light-theme);
+
+.app-theme {
+  color: mat.get-color-from-palette($app-primary, 600);
+}

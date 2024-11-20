@@ -1,0 +1,30 @@
+<div >
+  <h3 mat-dialog-title>
+    Podaj mail aby zresetować hasło
+  </h3>
+  <div mat-dialog-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput [formControl]="email">
+      <mat-error *ngIf="email.hasError('email')">
+        Niepoprawny adres email
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions [align]="'end'" class="action_buttons">
+    <button
+      class="action_buttons__button"
+      (click)="onNoDialog()"
+      mat-raised-button
+    >Anuluj</button>
+    <button
+      class="action_buttons__button"
+      (click)="resetPassword()"
+      [disabled]="email.invalid"
+      mat-raised-button
+      color="primary"
+    >Resetuj hasło</button>
+  </div>
+
+</div>

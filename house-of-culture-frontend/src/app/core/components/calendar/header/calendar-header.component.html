@@ -1,0 +1,36 @@
+<div class="container">
+  <div>
+    <mat-button-toggle-group [value]="view" *ngIf="!hideArrows">
+      <mat-button-toggle mwlCalendarPreviousView
+                         [view]="view"
+                         [(viewDate)]="viewDate"
+                         (viewDateChange)="viewDateChange.next(viewDate)" value="prev">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+
+      </mat-button-toggle>
+      <mat-button-toggle mwlCalendarToday
+                         [(viewDate)]="viewDate"
+                         (viewDateChange)="viewDateChange.next(viewDate)" value="today">Today
+      </mat-button-toggle>
+      <mat-button-toggle mwlCalendarNextView
+                         [view]="view"
+                         [(viewDate)]="viewDate"
+                         (viewDateChange)="viewDateChange.next(viewDate)" value="next">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+
+  </div>
+  <div >
+    <h3>{{ viewDate | calendarDate: view + 'ViewTitle' }}</h3>
+  </div>
+  <div>
+    <mat-button-toggle-group [value]="view" (change)="viewChange.emit($event.value)" *ngIf="!hideViewButtons">
+      <mat-button-toggle value="month">Month</mat-button-toggle>
+      <mat-button-toggle value="week">Week</mat-button-toggle>
+      <mat-button-toggle value="day">Day</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
+<br/>

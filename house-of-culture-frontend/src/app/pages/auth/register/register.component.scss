@@ -1,0 +1,10 @@
+
+.register_action{
+  display: flex;
+  justify-content: flex-end;
+
+  &__button{
+    min-width: 250px;
+    width: 30%;
+  }
+}

@@ -1,0 +1,30 @@
+.title{
+  margin-block-start: 0;
+}
+
+.content{
+
+  &__popular{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .content{
+
+    &__popular{
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .content{
+
+    &__popular{
+      grid-template-columns: 1fr;
+    }
+  }
+}

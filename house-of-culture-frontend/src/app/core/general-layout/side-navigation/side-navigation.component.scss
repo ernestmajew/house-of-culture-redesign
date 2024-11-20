@@ -1,0 +1,63 @@
+.side-navigation {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-left: 10%;
+  padding-right: 10%;
+
+  &__contact-info {
+    margin-bottom: 2rem;
+    font-size: 10px;
+    font-weight: bold;
+
+    &__space {
+      margin: 1rem;
+    }
+  }
+
+  &__button_container {
+    margin-top: 2rem;
+
+    &__nav-button {
+      display: flex;
+      align-items: center;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      font-size: 14px;
+      gap: 1rem;
+
+      &__icon {
+        font-size: 20px;
+      }
+    }
+  }
+
+  &__contact-info-social {
+    &__button {
+      display: inline-block;
+      margin-right: 1rem;
+      transition: transform 0.3s ease;
+      color: black;
+      justify-content: center;
+
+      .ig {
+        font-size: 2em;
+      }
+
+      .fb {
+        font-size: 1.9em;
+      }
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+.active-button {
+  color: #bd8618 !important;
+}

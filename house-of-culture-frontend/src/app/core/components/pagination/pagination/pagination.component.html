@@ -1,0 +1,19 @@
+<div class="pagination-buttons">
+  <button mat-icon-button [disabled]="currentPage === 1" (click)="goToFirstPage()">
+    <mat-icon>fast_rewind</mat-icon>
+  </button>
+  <button mat-icon-button [disabled]="currentPage === 1" (click)="previous()">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+
+  <ng-container *ngFor="let p of visiblePageNumbers">
+    <button mat-button class="toggle" (click)="selectPageNumber(p)" [disabled]="currentPage === p">{{ p }}</button>
+  </ng-container>
+
+  <button mat-icon-button [disabled]="currentPage === totalPages.length" (click)="next()">
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
+  <button mat-icon-button [disabled]="currentPage === totalPages.length" (click)="goToLastPage()">
+    <mat-icon>fast_forward</mat-icon>
+  </button>
+</div>

@@ -1,0 +1,20 @@
+<div *ngIf="isError" class="error-message">
+  {{errorMessage}}
+</div>
+<div class="container-content">
+  <form>
+    <div>
+      <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+      <div [ngClass]="{ 'error': isError }">
+      <ngx-editor [editor]="editor"
+                  [(ngModel)]="editorContent"
+                  name="editorContent"
+                  [disabled]="false"
+                  [placeholder]="placeholder"
+                  (ngModelChange)="onEditorContentChange()"
+                  (focusOut)="touched()">
+      </ngx-editor>
+      </div>
+    </div>
+  </form>
+</div>

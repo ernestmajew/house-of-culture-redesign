@@ -1,0 +1,99 @@
+<div class="content-container">
+  <app-calendar [events]="eventsToCalendar" [dayStartHour]="8" [dayEndHour]="21"></app-calendar>
+
+  <div class="content-container__info-box">
+
+    <div class="content-container__info-box__content">
+
+      <div class="content-container__info-box__content__form">
+        <h4>Nowy cykl zajęć</h4>
+        <form [formGroup]="form">
+          <div class="content-container__info-box__content__form__row">
+            <mat-form-field class="datepicker">
+              <mat-label>Data pierwszych zajęć</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="startDate">
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-hint>DD.MM.YYY</mat-hint>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="content-container__info-box__content__form__row">
+            <mat-form-field>
+              <mat-label>Częstotliwość</mat-label>
+              <mat-select formControlName="frequency"
+                          matTooltip="Brak wyboru częstotliwości oraz liczby powtórzeń spowoduje zaplanowanie pojedyńczych zajęć.">
+                <mat-option *ngFor="let freq of frequencies" [value]="freq">{{ freq.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Liczba powtórzeń</mat-label>
+              <input matInput type="number" formControlName="repeatCount"
+                     matTooltip="Brak wyboru spowoduje ustawienie domoślnej wartości - 3 miesięcy w czasie których według wybranej częstotliwości zaplanowane zostaną zajęcia.">
+            </mat-form-field>
+          </div>
+
+          <div class="content-container__info-box__content__form__row">
+            <mat-form-field>
+              <mat-label>Godzina rozpoczęcia</mat-label>
+              <input matInput
+                     formControlName="startTime"
+                     [ngxTimepicker]="startTime"
+                     [format]="24">
+              <ngx-material-timepicker #startTime
+                                       [cancelBtnTmpl]="cancelBtn"
+                                       [confirmBtnTmpl]="confirmBtn">
+              </ngx-material-timepicker>
+              <ng-template #cancelBtn>
+                <button mat-raised-button style="background-color: #ccc; color: #333; margin-right: 10px">Anuluj
+                </button>
+              </ng-template>
+              <ng-template #confirmBtn>
+                <button mat-raised-button color="primary" style="margin-left: 10px; margin-right: 30px;">Zatwierdź
+                </button>
+              </ng-template>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Godzina zakończenia</mat-label>
+              <input matInput
+                     formControlName="endTime"
+                     [ngxTimepicker]="endTime"
+                     [format]="24">
+              <ngx-material-timepicker #endTime
+                                       [cancelBtnTmpl]="cancelBtn"
+                                       [confirmBtnTmpl]="confirmBtn">
+              </ngx-material-timepicker>
+              <ng-template #cancelBtn>
+                <button mat-raised-button style="background-color: #ccc; color: #333; margin-right: 10px">Anuluj
+                </button>
+              </ng-template>
+              <ng-template #confirmBtn>
+                <button mat-raised-button color="primary" style="margin-left: 10px; margin-right: 30px;">Zatwierdź
+                </button>
+              </ng-template>
+            </mat-form-field>
+          </div>
+        </form>
+
+        <button mat-raised-button
+                color="primary"
+                (click)="addEvent()"
+                [disabled]="form.invalid">
+          Dodaj
+        </button>
+      </div>
+
+      <div class="content-container__info-box__content__list">
+        <h4>Zaplanowane zajęcia</h4>
+        <app-added-event-cards [isThisEdit]="isThisEdit"
+                               [addedEvents]="eventsToCards"
+                               (eventRemoved)="removeEvent($event)"
+                               (eventChanged)="eventEdited($event)">
+        </app-added-event-cards>
+      </div>
+    </div>
+
+  </div>
+</div>

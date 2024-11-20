@@ -1,0 +1,42 @@
+<div *ngIf="addedEvents?.length; else noEvents" class="event-list" [ngStyle]="{ 'max-height': getMaxHeight() }" [class.scrollable]="isScrollable">
+  <div *ngFor="let eventInfo of addedEvents; let i = index" class="event-card">
+    <mat-card (click)="openEditEventDialog(eventInfo)">
+      <mat-card-content>
+        <button mat-icon-button (click)="removeEvent(i)">
+          <mat-icon>close</mat-icon>
+        </button>
+
+        <div class="info">
+          <div class="info__row">
+            <div class="info__row__single-info">
+              <mat-icon>event</mat-icon>
+              <p>Od: {{eventInfo?.startDate?.toLocaleDateString()}}</p>
+            </div>
+            <div *ngIf="eventInfo?.repeatNumber" class="info__row__single-info">
+              <mat-icon>ballot</mat-icon>
+              <p>Liczba zajęć: {{eventInfo?.repeatNumber}}</p>
+            </div>
+          </div>
+          <div class="info__row">
+            <div class="info__row__single-info">
+              <mat-icon>query_builder</mat-icon>
+              <p>{{eventInfo?.startTime}} - {{eventInfo?.endTime}}</p>
+            </div>
+            <div *ngIf="eventInfo?.frequency?.name" class="info__row__single-info">
+              <mat-icon>autorenew</mat-icon>
+              <p>{{eventInfo.frequency.name}}</p>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<ng-template #noEvents>
+  <mat-card>
+    <mat-card-content>
+      <h4>Brak zaplanowanych zajęć</h4>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

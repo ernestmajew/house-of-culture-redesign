@@ -1,0 +1,21 @@
+.field_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 20px;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.action_buttons{
+  display: flex;
+  justify-content: space-evenly;
+
+  &__button{
+    width: 45%;
+  }
+}

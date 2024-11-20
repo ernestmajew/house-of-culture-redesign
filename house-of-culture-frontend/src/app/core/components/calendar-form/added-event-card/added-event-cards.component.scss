@@ -1,0 +1,52 @@
+.event-list {
+  &.scrollable {
+    overflow-y: auto;
+  }
+
+  .event-card {
+    max-height: 100px;
+    margin-bottom: 1rem;
+    margin-right: 2px;
+  }
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: row;
+  padding: 0 0 !important;
+
+  button {
+    display: flex;
+    justify-content: flex-start;
+    margin: auto 5px;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+
+    &__row {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+
+      &__single-info {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        mat-icon {
+          margin-right:3px;
+        }
+      }
+    }
+  }
+}
+
+mat-card {
+  margin-bottom: 1rem;
+}
+
+h4 {
+  margin: 1rem auto 1rem !important;
+}

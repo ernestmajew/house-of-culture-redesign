@@ -1,0 +1,53 @@
+.range-input {
+  width: 50%;
+  min-width: 250px;
+}
+
+.text-danger {
+  margin: 1px;
+  color: red;
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  min-width: 500px;
+  button {
+    width: 25%;
+    margin-top: 20px;
+  }
+}
+
+.ng-select.auto-grow {
+  display: flex;
+
+  .ng-select-container {
+    min-width: 100px;
+    width: auto;
+  }
+
+  .ng-dropdown-panel {
+    width: auto;
+  }
+}
+
+p-multiSelect {
+  border-radius: 4px;
+}
+
+::ng-deep p-multiselect .p-multiselect-label > *{
+  margin-right: 4px;
+}
+
+::ng-deep p-multiselect .p-multiselect-token {
+  border-radius: 4px;
+}
+
+::ng-deep p-multiselect .p-icon-wrapper {
+  padding-top: 2px;
+}
+
+::ng-deep p-multiselect .p-component {
+  border-radius: 4px;
+}
