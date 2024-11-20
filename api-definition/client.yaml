@@ -1,0 +1,2560 @@
+openapi: 3.0.3
+
+info:
+  version: 1.0.0
+  title: OpenAPI House Of Culture
+tags:
+  - name: Auth
+  - name: ContactInfo
+  - name: User
+  - name: Images
+  - name: Post
+  - name: Category
+  - name: Activity
+  - name: SingleEvent
+  - name: FacebookAuthentication
+  - name: Enrollment
+
+security:
+  - bearerAuth: []
+
+paths:
+  /api/account:
+    get:
+      tags:
+        - User
+      operationId: getAccount
+      security:
+       - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - User
+      operationId: updateAccount
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/user:
+    post:
+      tags:
+        - User
+      operationId: createUser
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+            description: Invalid request body
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+        '401':
+            description: Unauthorized
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+        '409':
+            description: User with given email already exists.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+  /api/user/child:
+    get:
+      tags:
+          - User
+      operationId: getChildren
+      description: Get children of logged in user if no or user is child empty list is returned
+      security:
+          - bearerAuth: [ ]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserInfo'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/user/instructor:
+    get:
+      tags:
+        - User
+      operationId: getAllInstructors
+      description: Get list of all instructors from culture house
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserInfo'
+  /api/auth/change-password:
+    post:
+      tags:
+        - Auth
+      operationId: changePasswordRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+              required:
+                - email
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordChangeInfo'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+        tags:
+            - Auth
+        operationId: validateChangePasswordCode
+        parameters:
+            - in: query
+              name: uuid
+              required: true
+              content:
+                application/json:
+                  schema:
+                    type: string
+                    format: uuid
+            - in: query
+              name: code
+              required: true
+              content:
+                application/json:
+                  schema:
+                    type: string
+        responses:
+            '200':
+              description: OK
+            '401':
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+            '404':
+              description: Not found
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+    put:
+        tags:
+            - Auth
+        operationId: changeUserPassword
+        requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/PasswordChangeRequest'
+        responses:
+            '200':
+              description: OK
+            '400':
+              description: Invalid request body
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+            '401':
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+            '404':
+              description: Not found
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+  /api/auth/change-password/{uuid}:
+    get:
+        tags:
+            - Auth
+        operationId: getPasswordChangeInfo
+        parameters:
+            - name: uuid
+              in: path
+              required: true
+              schema:
+                type: string
+                format: uuid
+        responses:
+            '200':
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/PasswordChangeInfo'
+            '401':
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+            '404':
+              description: Not found
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+
+  /api/auth/register:
+    post:
+      tags:
+        - Auth
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: User with given email already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/auth/authenticate:
+    post:
+      tags:
+        - Auth
+      operationId: authenticate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+               $ref: '#/components/schemas/AuthRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+  /api/public/contact-info:
+    get:
+      description: 'Get contact info of institution'
+      tags:
+        - ContactInfo
+      operationId: getContactInfo
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns valid contact info of institution
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactInfo'
+        '404':
+          description: Contact info not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/admin/contact-info:
+    put:
+      description: 'Modify contact info (you can only modify existing object)'
+      tags:
+        - ContactInfo
+      operationId: updateContactInfo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContactInfo"
+      responses:
+        '200':
+          description: Contact info was modified
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContactInfo"
+        '404':
+          description: Contact info not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/public/image/**:
+    get:
+      description: 'Get file from server.'
+      operationId: getImage
+      tags:
+        - Images
+      responses:
+        '200':
+          description: Return image.
+          content:
+            image/png:
+              schema:
+                $ref: "#/components/schemas/ImageResponse"
+            image/jpeg:
+              schema:
+                $ref: "#/components/schemas/ImageResponse"
+        '404':
+          description: Image not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/post:
+    post:
+      description: 'Create new post'
+      tags:
+        - Post
+      operationId: createPost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref:  "#/components/schemas/CreatePostRequest"
+      responses:
+        '200':
+          description: Created new post
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/PostSummaryResponse"
+        '403':
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: At least one of categories was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Cannot create social media posts.
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/PostSummaryResponse"
+  /api/post/{id}:
+    put:
+      operationId: editPost
+      tags:
+        - Post
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePostRequest"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostSummaryResponse"
+        '404':
+          description: "Post not found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: "At least one of categories was not found."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Cannot update social media posts.
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/PostSummaryResponse"
+
+    delete:
+      operationId: deletePost
+      tags:
+        - Post
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '202':
+          description: "Post was deleted but cannot delete social media posts."
+        '204':
+          description: "Post deleted successfully"
+        '404':
+          description: "Post not found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: "Conflict"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/public/post:
+    get:
+      description: 'Get posts with pagination.'
+      tags:
+        - Post
+      operationId: getPostsWithPagination
+      parameters:
+        - in: query
+          name: paginationParams
+          required: false
+          schema:
+            $ref: '#/components/schemas/MinimalPageable'
+        - in: query
+          name: categoryId
+          required: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedPostResponse"
+
+  /api/public/post/{id}:
+    get:
+      operationId: getPostById
+      tags:
+        - Post
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/PostResponse"
+        '404':
+          description: "Post not found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/category:
+    post:
+      description: 'Create new category'
+      tags:
+        - Category
+      operationId: createCategory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref:  "#/components/schemas/CreateCategoryRequest"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/CategoryResponse"
+        '400':
+          description: "Invalid name of category"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: "Category with given name already exists."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/public/category:
+    get:
+      description: 'Get categories filtered by name'
+      tags:
+        - Category
+      operationId: findCategoriesByName
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+            default: ""
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref:  "#/components/schemas/CategoryResponse"
+  /api/category/{id}:
+    delete:
+      description: 'Delete category by id'
+      tags:
+        - Category
+      operationId: deleteCategory
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Category not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Category cannot be deleted. It is associated with post or event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/public/activity:
+    get:
+      description: "Get popular Activities"
+      tags:
+        - Activity
+      operationId: getPopularActivities
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PopularActivitiesResponse'
+  /api/public/activity/search:
+    get:
+      description: "Search activities by title and category with pagination. If given category doesn't exist then filter only by text."
+      tags:
+        - Activity
+      operationId: getActivities
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema: 
+            type: integer
+            default: 0
+        - name: pageSize
+          in: query
+          required: false
+          schema: 
+            type: integer
+            default: 6
+        - name: text
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        - name: category
+          in: query
+          required: false
+          description: "Id of category to filter"
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200': 
+          description: OK
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/FilteredActivitiesResponse'
+        '422': 
+          description: "Category doesn't exists"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/public/activity/{id}: 
+    get:
+      description: "Get Activity by ID"
+      tags:
+        - Activity
+      operationId: getActivityById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/ActivityResponse'
+        '404':
+          description: "There is no activity with given ID"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/public/activity/categories:
+    get:
+      description: "Get categories associated with activities."
+      tags:
+        - Activity
+      operationId: getActivitiesCategories
+      parameters:
+        - name: number
+          in: query
+          description: "Number of returned categories"
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        '200':
+          description: "Returns categories."
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryResponse"
+  /api/activity/instructor:
+    get:
+      description: "Get all currently ongoing activities associated with instructor who is currently logged in."
+      tags:
+        - Activity
+      operationId: getInstructorActivity
+      responses:
+        '200':
+          description: "Returns activities."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActivitySummaryResponse"
+        '403':
+          description: "User is not instructor."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/activity:
+    post:
+      description: 'Create new Activity.'
+      tags:
+        - Activity
+      operationId: createActivity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref:  "#/components/schemas/CreateActivityRequest"
+      responses:
+        '200':
+          description: "Returns ID of new created activity"
+          content:
+            application/json:
+              schema: 
+                type: integer
+                format: int64
+        '404':
+          description: "Non-existing instructor or category"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: "Instructor has activity in given time"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/activity/{id}:
+    delete:
+      description: "Delete chosen activity by id"
+      tags:
+        - Activity
+      operationId: deleteActivity
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: "Activity deleted successfully"
+        '404':
+          description: "Activity not found."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      description: "Modify existing activity"
+      tags:
+        - Activity
+      operationId: editActivity
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref:  "#/components/schemas/EditActivityRequest"
+      responses:
+        '200':
+          description: "Returns ID of edited activity"
+          content:
+            application/json:
+              schema: 
+                type: integer
+                format: int64
+        '404': 
+          description: "Activity not found." 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'            
+        '422':
+          description: "Non-existing instructor or category"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/single-event/calendar:
+    get:
+      description: Get ics file with all single events from given date range.
+      tags:
+          - SingleEvent
+      operationId: getICSCalendar
+      parameters:
+          - in: query
+            name: startDate
+            required: true
+            schema:
+                type: string
+                format: date
+          - in: query
+            name: endDate
+            required: true
+            schema:
+                type: string
+                format: date
+          - in: query
+            name: userId
+            description: "Id of user(Child) to get only his single-events."
+            required: false
+            schema:
+                type: integer
+                format: int64
+          - in: query
+            name: instructorCalendar
+            description: "If true then return only single events instructor is assigned to."
+            required: false
+            schema:
+                type: boolean
+                default: false
+      responses:
+          '200':
+              description: "Returns ics file with all single events from given date range."
+              content:
+                text/calendar:
+                    schema:
+                      type: string
+                      format: binary
+          '403':
+              description: "User is not authorized."
+              content:
+                application/json:
+                    schema:
+                      $ref: '#/components/schemas/Error'
+          '422':
+              description: "No events for given date range."
+              content:
+                application/json:
+                    schema:
+                      $ref: '#/components/schemas/Error'
+
+  /api/single-event:
+    put:
+      description: "Modify existing single event"
+      tags:
+        - SingleEvent
+      operationId: editSingleEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EditSingleEventRequest"
+      responses:
+        '200':
+          description: "Returns ID of edited single event"
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+        '404':
+          description: "Single event not found."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: "Single event edit has wrong start and end time arguments."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/admin/facebook/authenticate:
+    get:
+      description: 'Get current Facebook authentication status and data.'
+      tags:
+        - FacebookAuthentication
+      operationId: "getFacebookAuthenticationData"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FacebookAuthenticationDataResponse"
+        '404':
+          description: "No facebook user account is connected to application"
+        '500':
+          description: "Something went wrong."
+    post:
+      description: 'Start process of authentication in Facebook API. Generate User Code (OAuth Device Flow) and return it with required data.'
+      tags:
+        - FacebookAuthentication
+      operationId: "authenticateFacebookApi"
+      responses:
+        '200':
+          description: "Return device code and verification uri."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FacebookUserCodeResponse"
+        '500':
+          description: "Something went wrong."
+  /api/admin/facebook/authenticate/page:
+    get:
+      description: "Get available pages (managed by authenticated user) which can be connected with previously generated user acccess token."
+      tags:
+        - FacebookAuthentication
+      operationId: "getAvailableFacebookPages"
+      responses:
+        '200':
+          description: "Return available pages"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FacebookPageResponse"
+        '409':
+          description: "User hasn't connected account to application yet."
+        '500':
+          description: "Something went wrong."
+    post:
+      description: "Connect page with generated user access token."
+      tags:
+        - FacebookAuthentication
+      operationId: "connectFacebookPage"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConnectFacebookPageRequest"
+      responses:
+        '200':
+          description: "Page was registered in application."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FacebookAuthenticationDataResponse"
+        '404':
+          description: "Selected page ID doesn't exist. Page may been deleted/disconnected from user account."
+        '409':
+          description: "Given Instagram account is not connected to selected page."
+        '422':
+          description: "Cannot connect page, because the user access token hasn't been generated yet."
+  /api/instructor/send-email/{singleEventId}:
+    post:
+      tags:
+        - SingleEvent
+      operationId: sendEmailToEnrolledUsers
+      parameters:
+        - name: singleEventId
+          in: path
+          description: Id of single event to send email to enrolled users
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendEmailRequest"
+      responses:
+        '204':
+          description: "OK"
+        '403':
+          description: "User is not authorized."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+            description: "Single event not found."
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+  /api/instructor/single-events:
+    get:
+      tags:
+        - SingleEvent
+      operationId: getInstructorSingleEvents
+      description: "Get all single events of logged instructor. 
+                      Dates are in midnight time zone UTC+0. So if you want to get 
+                      enrollments from 2021-01-01 to 2021-01-02 
+                      you should pass startDate=2020-01-01 and endDate=2021-01-03."
+      parameters:
+        - in: query
+          name: startDate
+          required: true
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: endDate
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: "Returns list of single events of instructor"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SingleEventOccurence"
+        '403':
+          description: "User is not instructor."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/enrollment/user/activities:
+    get:
+      tags:
+        - Enrollment
+      operationId: getAllActivitiesEnrollmentForUser
+      description: "Get enrolled activities of logged in user and his children.
+                    If you want to get all activities, even from past then pass
+                    showEventsFromPast attribute as true, otherwise dont pass it."
+      parameters:
+        - in: query
+          name: showEventsFromPast
+          required: true
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: "Returns list of events in which user has enrolled"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserEnrolledActivityResponse"
+        '403':
+          description: "User can only get his own enrollments or their child."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/enrollment/user/single-events:
+    get:
+        tags:
+            - Enrollment
+        operationId: getEnrollments
+        description: "Get all enrolled events of logged in user or id from query. 
+                      Dates are in midnight time zone UTC+0. So if you want to get 
+                      enrollments from 2021-01-01 to 2021-01-02 
+                      you should pass startDate=2020-01-01 and endDate=2021-01-03."
+        parameters:
+          - in: query
+            name: userId
+            schema:
+              type: integer
+              format: int64
+          - in: query
+            name: startDate
+            required: true
+            schema:
+              type: string
+              format: date
+          - in: query
+            name: endDate
+            required: true
+            schema:
+              type: string
+              format: date
+        responses:
+          '200':
+            description: "Returns list of single events in which user has enrolled"
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UserEnrolledSingleEventsResponse"
+          '403':
+            description: "User can only get his own enrollments or their child."
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+  /api/enrollments/participants/{eventId}:
+    get:
+      tags:
+        - Enrollment
+      operationId: getAllParticipantsOfActivity
+      description: "Get all participants of activity with their debts"
+      parameters:
+        - in: path
+          name: eventId
+          description: Id of event/activity to enroll
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: takeFromPast
+          description: If the result take also users from past single events of activity
+          required: true
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EnrolmentForEventResponse"
+        '403':
+          description: "User can only get participants of event for which he is instructor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: "Non-existing event/activity."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Enrollment
+      operationId: deleteUserEnrollmentForEvent
+      description: "Delete all future user enrollment for given user"
+      parameters:
+        - in: path
+          name: eventId
+          description: Id of event
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: userId
+          description: Id of User
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: "No Content"
+        '403':
+          description: "User can only delete user enrollment of event for which he is instructor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: "Non-existing event/activity."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/enrollment/{eventId}:
+    get: 
+      tags:
+        - Enrollment
+      operationId: getEnrollmentAvailability
+      description: "Get available single events for users and his children to enroll. Includes basic information about event and users."
+      parameters:
+        - in: path
+          name: eventId
+          description: Id of event/activity to enroll 
+          required: true
+          schema: 
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "OK" 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EnrollmentAvailabilityResponse"
+        '404':
+          description: "Non-existing event/activity."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Enrollment
+      operationId: deleteUserEnrollmentForActivities
+      description: "User deletes the enrollments for single events of event,
+                    numberOfEventsToDelete means how much of the events 
+                    count by last he wants to delete. When the argument is 
+                    not given then delete all enrollments"
+      parameters:
+        - in: path
+          name: eventId
+          description: Id of event/activity to delete enrollments
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: userId
+          description: Id of user
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: numberOfEventsToDelete
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: "No Content"
+        '404':
+          description: "Non-existing event/activity."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - Enrollment
+      operationId: enrollToEvent
+      description: "Enroll in a selected/event activity. Enroll in the selected number of the closest single events. Provide the user's ID for enrollment (whether it's the client or their children)."
+      parameters:
+        - in: path
+          name: eventId
+          description: Id of event/activity to enroll 
+          required: true
+          schema: 
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/CreateEnrollmentRequest"
+      responses:
+        '200':
+          description: "User enrolled to event/acivity. Returns single events in which user has enrolled"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SingleEventOccurence"
+        '403': 
+          description: "Only Client user can enroll himself of his child."
+        '404':
+          description: "Non-existing event/activity."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: "Cannot enroll to event. Error in response. Possible causes: user already enrolled, event is from past, no available places"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: "Cannot enroll in more single events than exist."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/enrollment/payment/{eventId}:
+    get: 
+      tags:
+        - EnrollmentPayment
+      operationId: getEnrollmentsPayments
+      description: "Get payments and missing for enrollments of selected event and user."
+      parameters:
+        - in: path
+          name: eventId
+          description: Id of event/activity to get payments 
+          required: true
+          schema: 
+            type: integer
+            format: int64
+        - in: query
+          name: userId
+          description: Id of user to get payments . If null then use logged in user.
+          required: false
+          schema: 
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: "OK" 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EnrollmentPaymentsResponse"
+        '403': 
+          description: "User unauthorized to get payments of given user."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: "Non-existing event/activity."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409': 
+          description: "User is not enrolled to this event/activity"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post: 
+      tags:
+        - EnrollmentPayment
+      operationId: payForEnrollments
+      description: "Pay for selected number of closest enrollments in given event."
+      parameters:
+        - in: path
+          name: eventId
+          description: Id of event/activity to pay 
+          required: true
+          schema: 
+            type: integer
+            format: int64
+        - in: query
+          name: userId
+          description: Id of user to pay for.
+          required: false
+          schema: 
+            type: integer
+            format: int64
+        - in: query
+          name: numberOfEnrollments
+          description: Number of enrollments to pay for. If null then pay for all enrollments in activity.
+          required: false
+          schema: 
+            type: integer
+            minimum: 1
+      responses:
+        '200':
+          description: "OK. Return RedirectURI" 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedirectUriResponse'
+        '403': 
+          description: "User unauthorized to pay for given user."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: "Non-existing event/activity."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409': 
+          description: "User is not enrolled to this event/activity"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: "User already paid for all enrollments"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/enrollment/payment/periodic:
+    get: 
+      tags:
+        - EnrollmentPayment
+      operationId: getPeriodicPaymentInvoice
+      description: "Get invoice for payment in selected period (data including cost and activities)."
+      parameters:
+        - in: query
+          name: usersIds
+          description: Ids of users to get payments.
+          required: true
+          schema: 
+            type: array
+            items:
+              type: integer
+              format: int64
+        - in: query
+          name: start
+          description: Start of selected period.
+          required: true
+          schema: 
+            type: string
+            format: date
+        - in: query
+          name: end
+          description: End of selected period.
+          required: true
+          schema: 
+            type: string
+            format: date
+      responses:
+        '200':
+          description: "OK" 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PeriodicPaymentInvoice"
+        '403': 
+          description: "User unauthorized to get payments of given user."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: "Start date cannot be after end date"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post: 
+      tags:
+        - EnrollmentPayment
+      operationId: createPeriodicPayment
+      description: "Create payment for enrollment selected period."
+      parameters:
+        - in: query
+          name: usersIds
+          description: Ids of users to get payments.
+          required: true
+          schema: 
+            type: array
+            items:
+              type: integer
+              format: int64
+        - in: query
+          name: start
+          description: Start of selected period.
+          required: true
+          schema: 
+            type: string
+            format: date
+        - in: query
+          name: end
+          description: End of selected period.
+          required: true
+          schema: 
+            type: string
+            format: date
+      responses:
+        '200':
+          description: "OK" 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RedirectUriResponse"
+        '403': 
+          description: "User unauthorized to get payments of given user."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: "Start date cannot be after end date"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+      required:
+        - message
+        - timestamp
+    UserRole:
+      type: string
+      enum: [ADMIN,
+             CHILD,
+             CLIENT,
+             INSTRUCTOR,
+             EMPLOYEE]
+    PasswordChangeInfo:
+      type: object
+      properties:
+          email:
+            type: string
+            format: email
+          expirationDate:
+            type: string
+            format: date-time
+          uuid:
+            type: string
+            format: uuid
+      required:
+        - email
+        - expirationDate
+        - uuid
+    PasswordChangeRequest:
+      type: object
+      properties:
+        code:
+          type: string
+        uuid:
+          type: string
+          format: uuid
+        password:
+          type: string
+      required:
+        - code
+        - uuid
+        - password
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        birthdate:
+          type: string
+          format: date
+        role:
+          $ref: '#/components/schemas/UserRole'
+        phoneNumber:
+          type: string
+        getsNewsletter:
+          type: boolean
+      required:
+       - id
+       - firstName
+       - lastName
+       - email
+       - birthdate
+       - role
+       - getsNewsletter
+    UserInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+    UpdateUserRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        birthdate:
+          type: string
+          format: date
+          x-field-extra-annotation: '@com.fasterxml.jackson.annotation.JsonFormat(shape = com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")'
+        phoneNumber:
+          type: string
+        getsNewsletter:
+          type: boolean
+      required:
+       - firstName
+       - lastName
+       - birthdate
+       - getsNewsletter
+    ContactInfo:
+      type: object
+      required:
+        - institutionName
+      properties:
+        institutionName:
+          type: string
+        addressFirstLine:
+          type: string
+          minLength: 1
+        addressSecondLine:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          minLength: 1
+          format: email
+        phoneNumber:
+          type: string
+          pattern: '(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)'
+        facebookUrl:
+          type: string
+          pattern: '^https://facebook.com/.*$'
+        instagramUrl:
+          type: string
+          pattern: '^https://instagram.com/.*$'
+        latitude: 
+          type: number
+          format: double
+          pattern: '^[+-]?(\d+(\.\d{1,6})?|\.\d{1,6})$'
+        longitude:
+          type: number
+          format: double
+          pattern: '^[+-]?(\d+(\.\d{1,6})?|\.\d{1,6})$'
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        refreshToken:
+          type: string
+      required:
+        - token
+        - refreshToken
+    AuthRequest:
+      type: object
+      properties:
+        login:
+          type: string
+          minLength: 1
+        password:
+          type: string
+          minLength: 1
+      required:
+        - login
+        - password
+    RegisterRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        lastname:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 1
+        dateOfBirth:
+          type: string
+          format: date
+        phoneNumber:
+          type: string
+        role:
+          $ref: '#/components/schemas/UserRole'
+      required:
+        - name
+        - email
+        - lastname
+        - password
+        - dateOfBirth
+    CreateUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        lastname:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        dateOfBirth:
+          type: string
+          format: date
+        phoneNumber:
+          type: string
+        role:
+          $ref: '#/components/schemas/UserRole'
+      required:
+        - name
+        - email
+        - lastname
+        - password
+        - dateOfBirth
+        - role
+
+    SendEmailRequest:
+      type: object
+      required:
+        - subject
+        - content
+      properties:
+        subject:
+          type: string
+        content:
+          type: string
+
+    PostResponse:
+      type: object
+      required:
+        - "id"
+        - "title"
+        - "description"
+        - "categories"
+        - "author"
+        - "created_at"
+        - "images"
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+          description: "Passed as HTML"
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryResponse"
+        author:
+          $ref: "#/components/schemas/User"
+        created_at:
+          type: string
+          format: date-time
+        images:
+          type: array
+          items:
+            type: string
+        fbPostUrl:
+          type: string
+        igPostUrl:
+          type: string
+
+    PaginatedPostResponse:
+      type: object
+      required:
+        - posts
+        - numberOfPages
+      properties:
+        posts:
+          type: array
+          items:
+            $ref: "#/components/schemas/PostSummaryResponse"
+        numberOfPages:
+          type: integer
+          format: int32
+
+    PostSummaryResponse:
+      type: object
+      required:
+        - "id"
+        - "title"
+        - "description"
+        - "created_at"
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+          description: "Passed as HTML"
+        created_at:
+          type: string
+          format: date-time
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryResponse"
+        image:
+          type: string
+        fbPostUrl:
+          type: string
+        igPostUrl:
+          type: string
+
+    CreatePostRequest:
+      type: object
+      required:
+        - "title"
+        - "description"
+        - "createFbPost"
+        - "createIgPost"
+      properties:
+        title:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          minLength: 1
+          description: "Passed as HTML"
+        categories:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: "Ids of categories to attach with post"
+        images:
+          type: array
+          items:
+            type: string
+            format: base64
+        createIgPost:
+          type: boolean
+          default: false
+        createFbPost:
+          type: boolean
+          default: false
+    FilteredActivitiesResponse:
+      type: object
+      description: "Filtered activities summaries with information about paging."
+      required:
+        - items
+        - pages
+      properties:
+        items: 
+          type: array
+          items:
+            $ref: "#/components/schemas/ActivitySummaryResponse"
+        pages:
+          description: "Number of pages for given filtering."
+          type: integer
+    PopularActivitiesResponse:
+      type: object
+      description: "Popular activities to display on main page. Include the most popular activities in the entire institution, categorized as well."
+      required:
+        - main
+        - categorized
+      properties:
+        main:
+          description: "Uncategorized activities"
+          type: array
+          items:
+            $ref: "#/components/schemas/ActivitySummaryResponse"
+        categorized:
+          type: array
+          items:
+            $ref: "#/components/schemas/PopularActivitiesCategorizedResponse"
+    PopularActivitiesCategorizedResponse:
+      type: object
+      properties:
+        category_id:
+          type: integer
+          format: int64
+        category_name:
+          type: string
+          minLength: 1
+        activities:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActivitySummaryResponse"
+    EventInfo:
+      type: object
+      required:
+        - id
+        - title
+      properties:
+        id: 
+          type: integer
+          format: int64
+        title: 
+          type: string
+        cost: 
+          type: number
+          format: double
+    ActivityResponse:
+      type: object
+      description: "Object to contain Activity data"
+      required:
+        - id
+        - title
+        - occurences
+        - instructor_id
+        - instructor_name
+        - description
+        - categories
+        - images
+      properties:
+        id: 
+          type: integer
+          format: int64
+        title:
+          type: string
+          minLength: 1
+        occurences:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/SingleEventOccurence"
+        instructor_id:
+          type: integer
+          format: int64
+        instructor_name:
+          type: string
+        description:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryResponse"
+        images:
+          type: array
+          items:
+            type: string
+        minimumAge:
+          type: integer
+          minimum: 1
+        maximumAge:
+          type: integer
+          minimum: 1
+        maxPlaces:
+          type: integer
+          minimum: 1
+          description: "If null then there is no limit of places."
+        availablePlaces:
+          type: integer
+          description: "Available places on closest event occurence. If null then there is no limit of places."
+        closestAvailableSingleEventDate:
+          type: string
+          format: date-time
+          description: "Time of the closest single event with available places. If null there are no available places."
+        cost:
+          type: number
+          format: double
+          minimum: 0
+    ActivitySummaryResponse:
+      type: object
+      description: "Summary (less info) about Activity to display on card."
+      required:
+        - id
+        - title
+        - startDate
+        - endDate
+        - instructor_id
+        - instructor_name
+        - image
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+          minLength: 1
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        instructor_id:
+          type: integer
+          format: int64
+        instructor_name:
+          type: string
+          minLength: 1
+        image: 
+          type: string
+          minLength: 1
+        minimumAge:
+          type: integer
+          minimum: 1
+        maximumAge:
+          type: integer
+          minimum: 1
+        cost:
+          type: number
+          format: double
+          minimum: 0
+
+    UserEnrolledActivityResponse:
+      type: object
+      properties:
+        activities:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActivityForUser"
+      required:
+        - activities
+
+    ActivityForUser:
+      type: object
+      properties:
+        user:
+          $ref: "#/components/schemas/UserInfo"
+        activity:
+          $ref: "#/components/schemas/ActivitySummaryResponse"
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        numberOfEnrolledSingleEvents:
+          type: integer
+        debtForPastEvents:
+          type: number
+          format: double
+          minimum: 0
+      required:
+        - user
+        - activity
+        - startDate
+        - endDate
+        - numberOfEnrolledSingleEvents
+        - debtForPastEvents
+    UserEnrolledSingleEventsResponse:
+      type: object
+      properties:
+        events:
+            type: array
+            items:
+                $ref: "#/components/schemas/SingleEventOccurence"
+        user:
+            $ref: "#/components/schemas/UserInfo"
+      required:
+        - events
+        - user
+
+    SingleEventOccurence:
+      type: object
+      required:
+        - id
+        - startTime
+        - endTime
+        - isCancelled
+        - title
+        - mainEventId
+      properties:
+        id:
+          type: integer
+          format: int64
+        mainEventId:
+          type: integer
+          format: int64
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        instructor_id:
+          type: integer
+          format: int64
+        instructor_name:
+          type: string
+          minLength: 1
+        title:
+          type: string
+          minLength: 1
+        isCancelled:
+          type: boolean
+    CreateActivityRequest:
+      type: object
+      description: "Object to create Activity."
+      required:
+        - title
+        - occurences
+        - instructor_id
+        - categories
+        - images
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 100
+        occurences:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/CreateSingleEventOccurence"
+        instructor_id:
+          type: integer
+          format: int64
+        description:
+          type: string
+          minLength: 1
+          maxLength: 2000
+        categories:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: "Ids of categories to attach with Event"
+        minimumAge:
+          type: integer
+          minimum: 1
+        maximumAge:
+          type: integer
+          minimum: 1
+        maxPlaces:
+          type: integer
+          minimum: 1
+        cost:
+          type: number
+          format: double
+          minimum: 0
+        images:
+          $ref: "#/components/schemas/Base64Images"
+    CreateSingleEventOccurence:
+      type: object
+      required:
+        - startTime
+        - endTime
+        - repeat
+        - frequency
+      description: "Creates set of single events, i.e.: {StartTime: 10:00 07.01.2023, EndTime: 11:00 07.01.2023, Repeat: 3, Frequency: every_week} creates 3 single events in 07.01.2023, 14.01.2023, 21.01.2023"
+      properties:
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        repeat:
+          type: integer
+        frequency:
+          type: string
+          enum: [single, every_week, every_two_weeks, every_three_weeks, every_month]
+    EditActivityRequest:
+      type: object
+      description: "Object to edit Activity."
+      required:
+        - title
+        - occurences
+        - instructor_id
+        - categories
+        - images
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 100
+        occurences: 
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/SingleEventRequest"
+        instructor_id:
+          type: integer
+          format: int64
+        description:
+          type: string
+          minLength: 1
+          maxLength: 2000
+        categories:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: "Ids of categories to attach with Event"
+        minimumAge:
+          type: integer
+          minimum: 1
+        maximumAge:
+          type: integer
+          minimum: 1
+        maxPlaces:
+          type: integer
+          minimum: 1
+        cost:
+          type: number
+          format: double
+          minimum: 0
+        images: 
+          $ref: "#/components/schemas/Base64Images"
+    SingleEventRequest: 
+      type: object
+      required:
+        - startTime
+        - endTime 
+      description: "Represents single event. If id is not defined then new single event is created."
+      properties:
+        id: 
+          type: integer
+          format: int64
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+    EditSingleEventRequest:
+      type: object
+      required:
+        - id
+        - startTime
+        - endTime
+      description: "Represents single event edit request."
+      properties:
+        id:
+          type: integer
+          format: int64
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        isCanceled:
+          type: boolean
+    CreateCategoryRequest:
+      type: object
+      required:
+        - "name"
+      properties:
+        name:
+          type: string
+          minLength: 1
+    CategoryResponse:
+      type: object
+      required:
+        - "name"
+        - "id"
+      properties:
+        name:
+          type: string
+          minLength: 1
+        id:
+          type: integer
+          format: int64
+    MinimalPageable:
+      description: Minimal Spring Pageable query parameters
+      type: object
+      required:
+        - "page"
+        - "pageSize"
+      properties:
+        page:
+          type: integer
+        pageSize:
+          type: integer
+    ImageResponse:
+      description: "Binary data of image."
+      type: string
+      format: binary
+    Base64Images:
+      type: array
+      items:
+        type: string
+        format: base64
+
+    FacebookAuthenticationDataResponse:
+      description: "Object to return data of connected Facebook user, page, instagram account."
+      type: object
+      required:
+        - username
+      properties:
+        username:
+          type: string
+        pageName:
+          type: string
+          description: "Null if no Facebook page is connected to application."
+        pageHref:
+          type: string
+        instagramUsername:
+          type: string
+          description: "Null if no Instagram account is connected to application."
+        instagramHref:
+          type: string
+    FacebookUserCodeResponse:
+      description: "Object to return data required to generate user access token for Facebook API."
+      type: object
+      required:
+        - code
+        - verificationUri
+      properties:
+        code:
+          type: string
+        verificationUri:
+          type: string
+    ConnectFacebookPageRequest:
+      description: "ID of page requested to connect with application. Includes information about Instagram."
+      type: object
+      required:
+        - pageId
+      properties:
+        pageId:
+          type: string
+        instagramId:
+          type: string
+          description: "If passed then connect given Instagram account with page."
+    FacebookPageResponse:
+      description: "Facebook page (with possible Instagram account) that user can connect to generated user token for Facebook API."
+      type: object
+      required:
+        - id
+        - name
+        - hasInstagramConnected
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        hasInstagramConnected:
+          type: boolean
+          description: If Facebook page has connected Instagram account.
+        instagramUsername:
+          type: string
+          description: Name of Instagram account connected to Facebook page
+        instagramId:
+          type: string
+          description: ID of Instagram account connected to Facebook page
+
+    PeriodicPaymentInvoice: 
+      type: object
+      required:
+        - payments
+      properties:
+        payments: 
+          type: array
+          items:
+            $ref: "#/components/schemas/PeriodicPaymentInvoiceItemResponse"
+    PeriodicPaymentInvoiceItemResponse:
+      type: object
+      required:
+        - user
+        - event
+        - unpaidEnrollments
+      properties:
+        user: 
+          $ref: "#/components/schemas/UserInfo"
+        event:
+          $ref: "#/components/schemas/EventInfo"
+        unpaidEnrollments:
+          type: integer
+          description: "Number of unpaid enrollments."
+    EnrollmentPaymentsResponse:
+      type: object
+      required:
+        - user
+        - event
+        - unpaidEnrollments
+        - paidEnrollments
+      properties:
+        user: 
+          $ref: "#/components/schemas/UserInfo"
+        event:
+          $ref: "#/components/schemas/EventInfo"
+        unpaidEnrollments:
+          type: integer
+          description: "Number of unpaid enrollments."
+        paidEnrollments:
+          type: array
+          items:
+            $ref: "#/components/schemas/PaidEnrolmentInfo"
+    PaidEnrolmentInfo:
+      type: object
+      required:
+        - date
+        - amount
+        - numberOfEnrolments
+        - status
+        - periodicPayment
+      properties:
+        date:
+          type: string
+          format: date
+        amount:
+          type: number
+          format: double
+        numberOfEnrolments:
+          type: integer
+        status:
+          type: string
+          enum: [NEW, PENDING, CANCELED, COMPLETED]
+        periodicPayment:
+          type: boolean
+    RedirectUriResponse:
+      type: object
+      required:
+        - uri
+      properties:
+        uri:
+          type: string
+    EnrollmentAvailabilityResponse:
+      type: object
+      required:
+        - title
+        - usersAvailability
+      properties:
+        title: 
+          type: string
+        cost: 
+          type: number
+          format: double
+        usersAvailability:
+          type: array
+          minLength: 1
+          items:
+            $ref: "#/components/schemas/UserEnrollmentAvailabilityResponse"
+          description: "Contains available single events for logged in user and his children."
+    UserEnrollmentAvailabilityResponse: 
+      type: object
+      required:
+        - userId
+        - userName
+        - singleEvents
+        - status
+      properties:
+        userId:
+          type: integer
+          format: int64
+        userFullName: 
+          type: string
+        singleEvents: 
+          type: array
+          items:
+            $ref: "#/components/schemas/SingleEventOccurence"
+          description: "If empty then user cannot enroll to this event. Occurrences ordered by start time."
+        status: 
+          $ref: "#/components/schemas/EnrollmentAvailabilityStatus"
+          description: "Return enrollment availability status (and reason if user cannot enroll). ALREADY_ENROLLED - user already enrolled to all available single events"
+    EnrollmentAvailabilityStatus:
+      type: string
+      enum: [AVAILABLE, TOO_YOUNG, TOO_OLD, ALREADY_ENROLLED]
+    CreateEnrollmentRequest:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+          description: "ID of user to enroll. Must be ID of user sending request or his child. If null then logged in user is enrolled."
+        numberOfSingleEvents:
+          type: integer
+          description: "Number of closest single events to enroll. If null then enroll to the whole activity/event."
+          minimum: 1
+
+    EnrolmentForEventResponse:
+      type: object
+      properties:
+        enrolledUserWithDebt:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserEnrolmentWithDebt"
+      required:
+        - enrolledUserWithDebt
+
+    UserEnrolmentWithDebt:
+      type: object
+      properties:
+        user:
+          $ref: "#/components/schemas/UserInfo"
+        debt:
+          type: number
+          format: double
+      required:
+        - user
+        - debt

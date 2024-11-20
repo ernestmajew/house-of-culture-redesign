@@ -1,0 +1,10 @@
+{
+  "useTags": true,
+  "dateLibrary": "java8",
+  "useBeanValidation": true,
+  "interfaceOnly": true,
+  "hideGenerationTimestamp": true,
+  "openApiNullable": false,
+  "useSpringBoot3": true,
+  "enumPropertyNaming": "UPPERCASE"
+}

@@ -1,0 +1,50 @@
+version: '3.8'
+services:
+  house-of-culture-backend:
+    image: orzeldev/house-of-culture-backend:latest
+    platform: linux/amd64
+    environment:
+      DATABASE_URL: jdbc:mysql://mysql_database:3306/house_of_culture
+      DATABASE_USERNAME: user
+      DATABASE_PASSWORD: pass
+      MAIL_SENDER_HOST: mailhog
+      APP_FRONTEND_URL: http://localhost:4200
+      MAIL_SENDER_PORT: 1025
+      FACEBOOK_APP_ID: 731508175484329
+      FACEBOOK_APP_ACCESS_TOKEN: 3cd29fd438576be38d38cd0091b5e603
+      IMGBB_APP_KEY: 859862c4cb6ab84e89a321f1d890f8af
+      SPRING_PROFILES_ACTIVE: prod
+    depends_on:
+      mysql_database:
+        condition: service_healthy
+    ports:
+      - 8080:8080
+  # house-of-culture-frontend:
+  #   platform: linux/amd64
+  #   image: orzeldev/house-of-culture-frontend:latest
+  #   ports:
+  #     - 4200:80
+  mysql_database:
+    platform: linux/amd64
+    image: mysql:8.0.33
+    environment:
+      MYSQL_DATABASE: house_of_culture
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    expose:
+      - 3306
+    ports:
+      - 3310:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  mailhog:
+    platform: linux/amd64
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+    expose:
+      - 1025
